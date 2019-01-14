@@ -2,37 +2,15 @@
   <body>
     <h1 id= 'placeHolder'></h1>
     <script>
-
-     function timeoutQuery() {
-       //create function with timeout delay
-       setTimeout(function(){
-         //code goes here
-         document.getElementById('placeHolder').innerHTML =
-         "hello";
-       },1000);
-       setTimeout(function(){
-         //code goes here
-         document.getElementById('placeHolder').innerHTML =
-         "how are you?";
-       },5000);
-       setTimeout(function(){
-         //code goes here
-         document.getElementById('placeHolder').innerHTML =
-         "hello?";
-       },10000);
-       setTimeout(function(){
-         //code goes here
-         document.getElementById('placeHolder').innerHTML =
-         "are you still there?";
-       },14000);
-       setTimeout(function(){
-         //code goes here
-         document.getElementById('placeHolder').innerHTML =
-         "It's lonely in here...";
-       },18000);
-       
-     }
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if(this.readyState == 4 && this.status == 200) {
+        var mydata = JSON.parse(this.responseText);
+        window.alert(mydata.name);
+      }
+    };
+    xmlhttp.open("GET","sample.json",true);
+    xmlhttp.send();
     </script>
-    <script>timeoutQuery()</script>
   </body>
 </html>
