@@ -1,7 +1,16 @@
 <html>
-  <body>
-    <h1 id= 'placeHolder'>Placeholder</h1>
-    <script>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Room Management</title>
+  <link rel="stylesheet" href="restaurantStyle.css">
+</head>
+
+<body>
+
+  <script>
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if(this.readyState == 4 && this.status == 200) {
@@ -12,5 +21,95 @@
     xmlhttp.open("GET","bento.json",true);
     xmlhttp.send();
     </script>
-  </body>
-</html>
+  <div id="navbar">
+    <img src='./media/logo.png'>
+    <h1>Kahanamoku restaurant</h1>
+  </div>
+  <div id='roomTable'>
+    <div id='roomDiv'>
+      <h1>Room One</h1>
+      <input type="number">
+      <br>
+      <input type="button" id="addButtonOne" value="check in!" onclick=javascript:adderRoomOne();>
+
+      <p>Click names to remove them</p>
+      <div id='listDiv'>
+        <ol id='roomOneList'></ol>
+      </div>
+
+    </div>
+
+    <div id='roomDiv'>
+      <h1>Room Two</h1>
+      <input type="number">
+      <br>
+      <input type="button" id="addButtonTwo" value="check in!" onclick=javascript:adderRoomTwo();>
+
+      <p>Click names to remove them</p>
+      <div id='listDiv'>
+        <ol id='roomTwoList'></ol>
+      </div>
+
+    </div>
+
+    <div id='roomDiv'>
+      <h1>Room Three</h1>
+      <input type="number">
+      <br>
+      <input type="button" id="addButtonThree" value="check in!" onclick=javascript:adderRoomThree();>
+
+      <p>Click names to remove them</p>
+      <div id='listDiv'>
+        <ol id='roomThreeList'></ol>
+      </div>
+
+    </div>
+
+    <div id='roomDiv'>
+      <h1>Room Four</h1>
+      <input type="number">
+      <br>
+      <input type="button" id="addButtonFour" value="check in!" onclick=javascript:adderRoomFour();>
+
+      <p>Click names to remove them</p>
+      <div id='listDiv'>
+        <ol id='roomFourList'></ol>
+      </div>
+
+    </div>
+
+    <div id='roomDiv'>
+      <h1>Room Five</h1>
+      <input type="number">
+      <br>
+      <input type="button" id="addButtonFive" value="check in!" onclick=javascript:adderRoomFive();>
+
+      <p>Click names to remove them</p>
+      <div id='listDiv'>
+        <ol id='roomFiveList'></ol>
+      </div>
+
+    </div>
+
+    <div id='roomDiv'>
+      <h1>Room Six</h1>
+      <input type="number">
+      <br>
+      <input type="button" id="addButtonSix" value="check in!" onclick=javascript:adderRoomSix();>
+
+      <p>Click names to remove them</p>
+      <div id='listDiv'>
+        <ol id='roomSixList'></ol>
+      </div>
+
+    </div>
+
+    <div id='guestLogDiv'>
+      <h1>Guest log for today</h1>
+      <div id='listDiv'>
+        <ol id='guestList'></ol>
+      </div>
+    </div>
+  </div>
+  <script src="./restaurantScript.js"></script>
+</body>
