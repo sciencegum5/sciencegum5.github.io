@@ -18,13 +18,13 @@ body {
     width: 94vw; 
   }
   
-  #roomTable {
+  #itemTable {
     display: grid; 
     grid-gap: 1vw 1vh;
     grid-template-columns: 25vw 23vw 23vw 23vw;
   }
   
-  #roomDiv {
+  #itemDiv {
     display: grid;
     text-align: justify;
     border-radius: 1vw;
