@@ -1,0 +1,86 @@
+body {
+    font-family: 'Ubuntu Mono', monospace;
+    background-image: linear-gradient(rgba(255, 136, 0, 0.5),
+      rgb(255, 255, 255), rgba(255, 153, 0, 0.5));
+  }
+  
+  #navbar {
+    overflow: hidden;
+    background-color: rgba(255, 153, 0, 0.5);
+    border-radius: 1vw;
+    border-style: ridge;
+    border-width: 1vw;
+    font-family: 'Ubuntu Mono', monospace;
+    text-align: center;
+    background-image: linear-gradient(rgb(0, 183, 255),
+      rgba(17, 148, 255, 0.507));
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    width: 94vw; 
+  }
+  
+  #roomTable {
+    display: grid; 
+    grid-gap: 1vw 1vh;
+    grid-template-columns: 25vw 23vw 23vw 23vw;
+  }
+  
+  #roomDiv {
+    display: grid;
+    text-align: justify;
+    border-radius: 1vw;
+    border-style: ridge;
+    border-width: 1vw;
+    font-family: 'Ubuntu Mono', monospace;
+    text-align: center;
+    background-image: linear-gradient(rgb(0, 183, 255),
+      rgba(17, 148, 255, 0.507));
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  }
+  
+  #guestLogDiv {
+    grid-row: 1 / 4;
+    text-align: center;
+    border-radius: 1vw;
+    border-style: ridge;
+    border-width: 1vw;
+    font-family: 'Ubuntu Mono', monospace;
+    text-align: center;
+    background-image: linear-gradient(rgb(0, 183, 255),
+      rgba(17, 148, 255, 0.507));
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  }
+  
+  #listDiv {
+    display: inherit;
+    text-align: center;
+    width: 95%;
+  }
+  #guestList {
+    overflow: auto;
+    vertical-align: middle;
+    display: inherit;
+    text-align: center;
+    width: 20vw;
+    padding-right: 5vw;
+  }
+  input {
+    text-align: justify;
+    text-align: center;
+    font-family: 'Ubuntu Mono', monospace;
+  }
+  
+  img {
+    width: 5vw;
+    height: 10vh;
+    justify-content: center;
+  }
+  
+  h1,
+  p,
+  li {
+   
+    vertical-align: middle;
+    font-family: 'Ubuntu Mono', monospace;
+    color: #e7e6e6;
+    text-align: center;
+  }
