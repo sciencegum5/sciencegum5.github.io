@@ -4,7 +4,7 @@ var xmlhttp = new XMLHttpRequest();
       if(this.readyState == 4 && this.status == 200) {
         var menudata = JSON.parse(this.responseText);
         console.log("json values updated");
-        console.log(menudata.bento[2].ingredients);
+        console.log(menudata.bento[2].ingredients[0]);
         grabElement('')
       }
     };
