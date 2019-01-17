@@ -6,21 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Item Management</title>
   <link rel="stylesheet" href="restaurantStyle.css">
+  <link rel="javascript" href="restaurant.js">
 </head>
 
 <body>
-
-  <script>
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if(this.readyState == 4 && this.status == 200) {
-        var mydata = JSON.parse(this.responseText);
-        console.log(mydata.bento[0].price);
-      }
-    };
-    xmlhttp.open("GET","bento.json",true);
-    xmlhttp.send();
-    </script>
   <div id="navbar">
     <h1>Kahanamoku restaurant</h1>
   </div>
