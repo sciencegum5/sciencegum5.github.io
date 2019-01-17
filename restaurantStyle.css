@@ -1,8 +1,8 @@
 body {
-    font-family: 'Ubuntu Mono', monospace;
-    background-image: linear-gradient(rgba(81, 255, 0, 0.849),
-      rgb(255, 255, 255), rgba(0, 255, 221, 0.767));
-  }
+  font-family: 'Ubuntu Mono', monospace;
+  background-image: linear-gradient(rgba(255, 136, 0, 0.5),
+    rgb(255, 255, 255), rgba(255, 153, 0, 0.5));
+}
   
   #navbar {
     overflow: hidden;
