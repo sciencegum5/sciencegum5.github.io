@@ -5,7 +5,7 @@ var xmlhttp = new XMLHttpRequest();
         var menudata = JSON.parse(this.responseText);
         console.log("json values updated");
         console.log(menudata.bento[2].ingredients[0]);
-        grabElement('')
+        grabElement('itemOneName').innerHtml = menudata.bento
       }
     };
     xmlhttp.open("GET","Items.json",true);
