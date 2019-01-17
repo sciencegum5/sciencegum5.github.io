@@ -1,7 +1,7 @@
 body {
     font-family: 'Ubuntu Mono', monospace;
-    background-image: linear-gradient(rgba(255, 136, 0, 0.5),
-      rgb(255, 255, 255), rgba(255, 153, 0, 0.5));
+    background-image: linear-gradient(rgba(81, 255, 0, 0.849),
+      rgb(255, 255, 255), rgba(0, 255, 221, 0.767));
   }
   
   #navbar {
@@ -12,8 +12,8 @@ body {
     border-width: 1vw;
     font-family: 'Ubuntu Mono', monospace;
     text-align: center;
-    background-image: linear-gradient(rgb(0, 183, 255),
-      rgba(17, 148, 255, 0.507));
+    background-image: linear-gradient(rgba(0, 183, 255, 0.123),
+      rgba(17, 148, 255, 0));
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
     width: 94vw; 
   }
@@ -37,7 +37,7 @@ body {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
   }
   
-  #guestLogDiv {
+  #itemLogDiv {
     grid-row: 1 / 4;
     text-align: center;
     border-radius: 1vw;
@@ -55,7 +55,7 @@ body {
     text-align: center;
     width: 95%;
   }
-  #guestList {
+  #itemList {
     overflow: auto;
     vertical-align: middle;
     display: inherit;
