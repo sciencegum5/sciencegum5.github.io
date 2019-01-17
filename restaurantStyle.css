@@ -6,14 +6,13 @@ body {
   
   #navbar {
     overflow: hidden;
-    background-color: rgba(255, 153, 0, 0.5);
     border-radius: 1vw;
     border-style: ridge;
     border-width: 1vw;
     font-family: 'Ubuntu Mono', monospace;
     text-align: center;
-    background-image: linear-gradient(rgba(0, 183, 255, 0.123),
-      rgba(17, 148, 255, 0));
+    background-image: linear-gradient(rgb(0, 183, 255),
+    rgba(17, 148, 255, 0.507));
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
     width: 94vw; 
   }
