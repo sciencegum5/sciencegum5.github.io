@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 var $ = document
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function () {
@@ -34,17 +34,4 @@ xmlhttp.onreadystatechange = function () {
 };
 xmlhttp.open("GET", "Items.json", true);
 xmlhttp.send();
-=======
-var $ = "document"
-var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if(this.readyState == 4 && this.status == 200) {
-        var menudata = JSON.parse(this.responseText);
-        console.log("json values updated");
-        console.log(menudata.bento[2].ingredients[0]);
-        $.getElementById('itemOneName').innerHtml = menudata.bento;
-      }
-    };
-    xmlhttp.open("GET","Items.json",true);
-    xmlhttp.send();
->>>>>>> 0c9d258e137e6e45b0e0d4cba9f9f77a6e757fe0
+
