@@ -1,6 +1,6 @@
 {
-    "bento": [{
-        "type": "salmon",
+    "menuItems": [{
+        "name": "salmon burger",
         "price": 7.79,
         "ingredients": [
             "rice",
