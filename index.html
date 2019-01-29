@@ -78,7 +78,7 @@
   <script src="restaurantScript.js"></script>
   <script>var previous = null;
   var current = null;
-  setInterval(function()){
+  setInterval(function(){
   $.getJSON("file.json",function(json){
   current = JSON.stringify(json);
   if (previous && current && previous !==current){
