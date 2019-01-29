@@ -34,3 +34,11 @@ xmlhttp.onreadystatechange = function () {
 xmlhttp.open("GET", "Items.json", true);
 xmlhttp.send();
 
+function checkOut() {
+    itemOneQty =  document.getElementById('itemOneQty').value;
+    localStorage.setItem("itemOneQty", itemOneQty);
+    location.href="Checkout.html";
+    //ask price
+    //redirect 
+    //compile and display
+}
