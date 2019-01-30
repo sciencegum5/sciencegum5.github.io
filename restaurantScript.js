@@ -34,11 +34,11 @@ xmlhttp.onreadystatechange = function () {
 xmlhttp.open("GET", "Items.json", true);
 xmlhttp.send();
 
-function checkOut() {
-    itemOneQty =  document.getElementById('itemOneQty').value;
-    localStorage.setItem("itemOneQty", itemOneQty);
-    location.href="Checkout.html";
-    //ask price
-    //redirect 
-    //compile and display
+function adderItemOne() {
+   var ItemOneSubTotal = $.getElementById('itemOneQty').value * $.getElementById('itemOnePrice').value;
+   const liLog = document.createElement('li'); //Creating list item here
+   const textLog = document.createTextNode($.getElementById('itemOneName') + " x " + $.getElementById('itemOneQty').value +" = $"+ ItemOneSubTotal); //pulling occupant from guest log array
+   liLog.appendChild(textLog); //appending to new li
+   const guestLogText = document.getElementById('List'); //grabbing parent node 
+   guestLogText.appendChild(liLog); //appending li to said node
 }
