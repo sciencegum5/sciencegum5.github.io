@@ -16,6 +16,13 @@ var itemFivePrice ;
 var itemSixName ;
 var itemSixDesc ;
 var itemSixPrice ;
+var itemOneSubTotal ;
+var itemTwoSubTotal ;
+var itemThreeSubTotal ;
+var itemFourSubTotal ;
+var itemFiveSubTotal ;
+var itemSixSubTotal ;
+var itemGrandTotal ;
 
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function () {
@@ -46,6 +53,7 @@ xmlhttp.onreadystatechange = function () {
     itemSixDesc = menudata.menuItems[0].calmonBurger.description
     itemSixPrice = menudata.menuItems[0].calmonBurger.price
     //end six
+    //update page lol
     document.getElementById('itemOneName').innerHTML = itemOneName;
     document.getElementById('itemOneDesc').innerHTML = itemOneDesc;
     document.getElementById('itemOnePrice').innerHTML = itemOnePrice;
@@ -64,6 +72,7 @@ xmlhttp.onreadystatechange = function () {
     document.getElementById('itemSixName').innerHTML = itemSixName;
     document.getElementById('itemSixDesc').innerHTML = itemSixDesc;
     document.getElementById('itemSixPrice').innerHTML = itemSixPrice;
+    //end lol
     console.log("JSON values updated");
   }
 };
@@ -71,7 +80,7 @@ xmlhttp.open("GET", "Items.json", true);
 xmlhttp.send();
 
 function adderItemOne() {
-   var ItemOneSubTotal = document.getElementById('itemOneQty').value * itemOnePrice;
+   ItemOneSubTotal = document.getElementById('itemOneQty').value * itemOnePrice;
    console.log(ItemOneSubTotal);
    const liLog = document.createElement('li'); //Creating list item here
    const textLog = document.createTextNode(itemOneName + " x " + document.getElementById('itemOneQty').value +" = $"+ ItemOneSubTotal); //pulling occupant from guest log array
@@ -79,3 +88,62 @@ function adderItemOne() {
    const guestLogText = document.getElementById('List'); //grabbing parent node 
    guestLogText.appendChild(liLog); //appending li to said node
 }
+
+function adderItemTwo() {
+  ItemTwoSubTotal = document.getElementById('itemTwoQty').value * itemTwoPrice;
+  console.log(ItemTwoSubTotal);
+  const liLog = document.createElement('li'); //Creating list item here
+  const textLog = document.createTextNode(itemTwoName + " x " + document.getElementById('itemTwoQty').value +" = $"+ ItemTwoSubTotal); //pulling occupant from guest log array
+  liLog.appendChild(textLog); //appending to new li
+  const guestLogText = document.getElementById('List'); //grabbing parent node 
+  guestLogText.appendChild(liLog); //appending li to said node
+}
+
+function adderItemThree() {
+  ItemThreeSubTotal = document.getElementById('itemThreeQty').value * itemThreePrice;
+  console.log(ItemThreeSubTotal);
+  const liLog = document.createElement('li'); //Creating list item here
+  const textLog = document.createTextNode(itemThreeName + " x " + document.getElementById('itemThreeQty').value +" = $"+ ItemThreeSubTotal); //pulling occupant from guest log array
+  liLog.appendChild(textLog); //appending to new li
+  const guestLogText = document.getElementById('List'); //grabbing parent node 
+  guestLogText.appendChild(liLog); //appending li to said node
+}
+
+function adderItemFour() {
+  ItemFourSubTotal = document.getElementById('itemFourQty').value * itemFourPrice;
+  console.log(ItemFourSubTotal);
+  const liLog = document.createElement('li'); //Creating list item here
+  const textLog = document.createTextNode(itemFourName + " x " + document.getElementById('itemFourQty').value +" = $"+ ItemFourSubTotal); //pulling occupant from guest log array
+  liLog.appendChild(textLog); //appending to new li
+  const guestLogText = document.getElementById('List'); //grabbing parent node 
+  guestLogText.appendChild(liLog); //appending li to said node
+}
+
+function adderItemFive() {
+  ItemFiveSubTotal = document.getElementById('itemFiveQty').value * itemFivePrice;
+  console.log(ItemFiveSubTotal);
+  const liLog = document.createElement('li'); //Creating list item here
+  const textLog = document.createTextNode(itemFiveName + " x " + document.getElementById('itemFiveQty').value +" = $"+ ItemFiveSubTotal); //pulling occupant from guest log array
+  liLog.appendChild(textLog); //appending to new li
+  const guestLogText = document.getElementById('List'); //grabbing parent node 
+  guestLogText.appendChild(liLog); //appending li to said node
+}
+
+function adderItemSix() {
+  ItemSixSubTotal = document.getElementById('itemSixQty').value * itemSixPrice;
+  console.log(ItemSixSubTotal);
+  const liLog = document.createElement('li'); //Creating list item here
+  const textLog = document.createTextNode(itemSixName + " x " + document.getElementById('itemSixQty').value +" = $"+ ItemSixSubTotal); //pulling occupant from guest log array
+  liLog.appendChild(textLog); //appending to new li
+  const guestLogText = document.getElementById('List'); //grabbing parent node 
+  guestLogText.appendChild(liLog); //appending li to said node
+}
+function checkOut() {
+  itemGrandTotal = ItemOneSubTotal + ItemTwoSubTotal + ItemThreeSubTotal + ItemFourSubTotal + ItemFiveSubTotal + ItemSixSubTotal * 1.04712;
+}
+/* var sum = priceArr.reduce(add,0) ;
+  function add(a,b) {
+    return a+b;
+  }
+  window.alert(sum);
+*/
