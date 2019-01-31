@@ -1,33 +1,69 @@
-var $ = document
+var itemOneName ;
+var itemOneDesc ;
+var itemOnePrice ;
+var itemTwoName ;
+var itemTwoDesc ;
+var itemTwoPrice ;
+var itemThreeName ;
+var itemThreeDesc ;
+var itemThreePrice ;
+var itemFourName ;
+var itemFourDesc ;
+var itemFourPrice ;
+var itemFiveName ;
+var itemFiveDesc ;
+var itemFivePrice ;
+var itemSixName ;
+var itemSixDesc ;
+var itemSixPrice ;
+
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function () {
   if (this.readyState == 4 && this.status == 200) {
     var menudata = JSON.parse(this.responseText);
     console.log("Updating JSON Values");
-    $.getElementById('itemOneName').innerHTML = menudata.menuItems[0].salmonBurger[0].name
-    $.getElementById('itemOneDesc').innerHTML = menudata.menuItems[0].salmonBurger[0].description
-    $.getElementById('itemOnePrice').innerHTML = menudata.menuItems[0].salmonBurger[0].price
+    itemOneName = menudata.menuItems[0].salmonBurger.name
+    itemOneDesc = menudata.menuItems[0].salmonBurger.description
+    itemOnePrice = menudata.menuItems[0].salmonBurger.price
     //end one
-    $.getElementById('itemTwoName').innerHTML = menudata.menuItems[0].balmonBurger[0].name
-    $.getElementById('itemTwoDesc').innerHTML = menudata.menuItems[0].balmonBurger[0].description
-    $.getElementById('itemTwoPrice').innerHTML = menudata.menuItems[0].balmonBurger[0].price
+    itemTwoName = menudata.menuItems[0].balmonBurger.name
+    itemTwoDesc = menudata.menuItems[0].balmonBurger.description
+    itemTwoPrice = menudata.menuItems[0].balmonBurger.price
     //end two
-    $.getElementById('itemThreeName').innerHTML = menudata.menuItems[0].galmonBurger[0].name
-    $.getElementById('itemThreeDesc').innerHTML = menudata.menuItems[0].galmonBurger[0].description
-    $.getElementById('itemThreePrice').innerHTML = menudata.menuItems[0].galmonBurger[0].price
+    itemThreeName = menudata.menuItems[0].galmonBurger.name
+    itemThreeDesc = menudata.menuItems[0].galmonBurger.description
+    itemThreePrice = menudata.menuItems[0].galmonBurger.price
     //end three
-    $.getElementById('itemFourName').innerHTML = menudata.menuItems[0].palmonBurger[0].name
-    $.getElementById('itemFourDesc').innerHTML = menudata.menuItems[0].palmonBurger[0].description
-    $.getElementById('itemFourPrice').innerHTML = menudata.menuItems[0].palmonBurger[0].price
+    itemFourName = menudata.menuItems[0].palmonBurger.name
+    itemFourDesc = menudata.menuItems[0].palmonBurger.description
+    itemFourPrice = menudata.menuItems[0].palmonBurger.price
     //end four
-    $.getElementById('itemFiveName').innerHTML = menudata.menuItems[0].zalmonBurger[0].name
-    $.getElementById('itemFiveDesc').innerHTML = menudata.menuItems[0].zalmonBurger[0].description
-    $.getElementById('itemFivePrice').innerHTML = menudata.menuItems[0].zalmonBurger[0].price
+    itemFiveName = menudata.menuItems[0].zalmonBurger.name
+    itemFiveDesc = menudata.menuItems[0].zalmonBurger.description
+    itemFivePrice = menudata.menuItems[0].zalmonBurger.price
     //end five
-    $.getElementById('itemSixName').innerHTML = menudata.menuItems[0].calmonBurger[0].name
-    $.getElementById('itemSixDesc').innerHTML = menudata.menuItems[0].calmonBurger[0].description
-    $.getElementById('itemSixPrice').innerHTML = menudata.menuItems[0].calmonBurger[0].price
+    itemSixName = menudata.menuItems[0].calmonBurger.name
+    itemSixDesc = menudata.menuItems[0].calmonBurger.description
+    itemSixPrice = menudata.menuItems[0].calmonBurger.price
     //end six
+    document.getElementById('itemOneName').innerHTML = itemOneName;
+    document.getElementById('itemOneDesc').innerHTML = itemOneDesc;
+    document.getElementById('itemOnePrice').innerHTML = itemOnePrice;
+    document.getElementById('itemTwoName').innerHTML = itemTwoName;
+    document.getElementById('itemTwoDesc').innerHTML = itemTwoDesc;
+    document.getElementById('itemTwoPrice').innerHTML = itemTwoPrice;
+    document.getElementById('itemThreeName').innerHTML = itemThreeName;
+    document.getElementById('itemThreeDesc').innerHTML = itemThreeDesc;
+    document.getElementById('itemThreePrice').innerHTML = itemThreePrice;
+    document.getElementById('itemFourName').innerHTML = itemFourName;
+    document.getElementById('itemFourDesc').innerHTML = itemFourDesc;
+    document.getElementById('itemFourPrice').innerHTML = itemFourPrice;
+    document.getElementById('itemFiveName').innerHTML = itemFiveName;
+    document.getElementById('itemFiveDesc').innerHTML = itemFiveDesc;
+    document.getElementById('itemFivePrice').innerHTML = itemFivePrice;
+    document.getElementById('itemSixName').innerHTML = itemSixName;
+    document.getElementById('itemSixDesc').innerHTML = itemSixDesc;
+    document.getElementById('itemSixPrice').innerHTML = itemSixPrice;
     console.log("JSON values updated");
   }
 };
@@ -35,10 +71,10 @@ xmlhttp.open("GET", "Items.json", true);
 xmlhttp.send();
 
 function adderItemOne() {
-   var ItemOneSubTotal = $.getElementById('itemOneQty') * $.getElementById('itemOnePrice');
+   var ItemOneSubTotal = document.getElementById('itemOneQty').value * itemOnePrice;
    console.log(ItemOneSubTotal);
    const liLog = document.createElement('li'); //Creating list item here
-   const textLog = document.createTextNode($.getElementById('itemOneName').value + " x " + $.getElementById('itemOneQty').value +" = $"+ ItemOneSubTotal); //pulling occupant from guest log array
+   const textLog = document.createTextNode(itemOneName + " x " + document.getElementById('itemOneQty').value +" = $"+ ItemOneSubTotal); //pulling occupant from guest log array
    liLog.appendChild(textLog); //appending to new li
    const guestLogText = document.getElementById('List'); //grabbing parent node 
    guestLogText.appendChild(liLog); //appending li to said node

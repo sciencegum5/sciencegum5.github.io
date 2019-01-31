@@ -77,9 +77,10 @@ body {
   h1,
   p,
   li {
-   
+    font-size: 1vw;
     vertical-align: middle;
     font-family: 'Ubuntu Mono', monospace;
     color: #e7e6e6;
     text-align: center;
   }
+  
