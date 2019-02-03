@@ -106,7 +106,7 @@ function adderItemTwo() {
   liLog.appendChild(textLog); //appending to new li
   const guestLogText = document.getElementById('List'); //grabbing parent node 
   guestLogText.appendChild(liLog); //appending li to said node
-  itemGrandSubTotal.push(itemOneSubTotal);
+  itemGrandSubTotal.push(itemTwoSubTotal);
   itemGrandTotal = itemGrandSubTotal.reduce(add, 0);
   function add(a, b) {
     return a + b;
@@ -123,7 +123,7 @@ function adderItemThree() {
   liLog.appendChild(textLog); //appending to new li
   const guestLogText = document.getElementById('List'); //grabbing parent node 
   guestLogText.appendChild(liLog); //appending li to said node
-  itemGrandSubTotal.push(itemOneSubTotal);
+  itemGrandSubTotal.push(itemThreeSubTotal);
   itemGrandTotal = itemGrandSubTotal.reduce(add, 0);
   function add(a, b) {
     return a + b;
@@ -140,7 +140,7 @@ function adderItemFour() {
   liLog.appendChild(textLog); //appending to new li
   const guestLogText = document.getElementById('List'); //grabbing parent node 
   guestLogText.appendChild(liLog); //appending li to said node
-  itemGrandSubTotal.push(itemOneSubTotal);
+  itemGrandSubTotal.push(itemFourSubTotal);
   itemGrandTotal = itemGrandSubTotal.reduce(add, 0);
   function add(a, b) {
     return a + b;
@@ -157,7 +157,7 @@ function adderItemFive() {
   liLog.appendChild(textLog); //appending to new li
   const guestLogText = document.getElementById('List'); //grabbing parent node 
   guestLogText.appendChild(liLog); //appending li to said node
-  itemGrandSubTotal.push(itemOneSubTotal);
+  itemGrandSubTotal.push(itemFiveSubTotal);
   itemGrandTotal = itemGrandSubTotal.reduce(add, 0);
   function add(a, b) {
     return a + b;
@@ -174,7 +174,7 @@ function adderItemSix() {
   liLog.appendChild(textLog); //appending to new li
   const guestLogText = document.getElementById('List'); //grabbing parent node 
   guestLogText.appendChild(liLog); //appending li to said node
-  itemGrandSubTotal.push(itemOneSubTotal);
+  itemGrandSubTotal.push(itemSixSubTotal);
   itemGrandTotal = itemGrandSubTotal.reduce(add, 0);
   function add(a, b) {
     return a + b;
