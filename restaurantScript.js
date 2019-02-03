@@ -16,13 +16,14 @@ var itemFivePrice ;
 var itemSixName ;
 var itemSixDesc ;
 var itemSixPrice ;
-var itemOneSubTotal ;
-var itemTwoSubTotal ;
-var itemThreeSubTotal ;
-var itemFourSubTotal ;
-var itemFiveSubTotal ;
-var itemSixSubTotal ;
+var itemOneSubTotal = 0;
+var itemTwoSubTotal = 0;
+var itemThreeSubTotal = 0;
+var itemFourSubTotal = 0;
+var itemFiveSubTotal = 0;
+var itemSixSubTotal = 0;
 var itemGrandTotal ;
+var itemGrandSubTotal = [];
 
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function () {
@@ -80,70 +81,114 @@ xmlhttp.open("GET", "Items.json", true);
 xmlhttp.send();
 
 function adderItemOne() {
-   ItemOneSubTotal = document.getElementById('itemOneQty').value * itemOnePrice;
-   console.log(ItemOneSubTotal);
+   itemOneSubTotal = document.getElementById('itemOneQty').value * itemOnePrice;
+  console.log(itemGrandTotal);
+   console.log(itemOneSubTotal);
    const liLog = document.createElement('li'); //Creating list item here
-   const textLog = document.createTextNode(itemOneName + " x " + document.getElementById('itemOneQty').value +" = $"+ ItemOneSubTotal); //pulling occupant from guest log array
+   const textLog = document.createTextNode(itemOneName + " x " + document.getElementById('itemOneQty').value +" = $"+ itemOneSubTotal.toFixed(2)); //pulling occupant from guest log array
    liLog.appendChild(textLog); //appending to new li
    const guestLogText = document.getElementById('List'); //grabbing parent node 
    guestLogText.appendChild(liLog); //appending li to said node
+   itemGrandSubTotal.push(itemOneSubTotal);
+  itemGrandTotal = itemGrandSubTotal.reduce(add, 0);
+  function add(a, b) {
+    return a + b;
+  }
+  document.getElementById('grandTotal').innerHTML = "Your Current SubTotal: $" + itemGrandTotal.toFixed(2);
 }
 
 function adderItemTwo() {
-  ItemTwoSubTotal = document.getElementById('itemTwoQty').value * itemTwoPrice;
-  console.log(ItemTwoSubTotal);
+  itemTwoSubTotal = document.getElementById('itemTwoQty').value * itemTwoPrice;
+  console.log(itemGrandTotal);
+  console.log(itemTwoSubTotal);
   const liLog = document.createElement('li'); //Creating list item here
-  const textLog = document.createTextNode(itemTwoName + " x " + document.getElementById('itemTwoQty').value +" = $"+ ItemTwoSubTotal); //pulling occupant from guest log array
+  const textLog = document.createTextNode(itemTwoName + " x " + document.getElementById('itemTwoQty').value +" = $"+ itemTwoSubTotal.toFixed(2)); //pulling occupant from guest log array
   liLog.appendChild(textLog); //appending to new li
   const guestLogText = document.getElementById('List'); //grabbing parent node 
   guestLogText.appendChild(liLog); //appending li to said node
+  itemGrandSubTotal.push(itemOneSubTotal);
+  itemGrandTotal = itemGrandSubTotal.reduce(add, 0);
+  function add(a, b) {
+    return a + b;
+  }
+  document.getElementById('grandTotal').innerHTML = "Your Current SubTotal: $" + itemGrandTotal.toFixed(2);
 }
 
 function adderItemThree() {
-  ItemThreeSubTotal = document.getElementById('itemThreeQty').value * itemThreePrice;
-  console.log(ItemThreeSubTotal);
+  itemThreeSubTotal = document.getElementById('itemThreeQty').value * itemThreePrice;
+  console.log(itemGrandTotal);
+  console.log(itemThreeSubTotal);
   const liLog = document.createElement('li'); //Creating list item here
-  const textLog = document.createTextNode(itemThreeName + " x " + document.getElementById('itemThreeQty').value +" = $"+ ItemThreeSubTotal); //pulling occupant from guest log array
+  const textLog = document.createTextNode(itemThreeName + " x " + document.getElementById('itemThreeQty').value +" = $"+ itemThreeSubTotal.toFixed(2)); //pulling occupant from guest log array
   liLog.appendChild(textLog); //appending to new li
   const guestLogText = document.getElementById('List'); //grabbing parent node 
   guestLogText.appendChild(liLog); //appending li to said node
+  itemGrandSubTotal.push(itemOneSubTotal);
+  itemGrandTotal = itemGrandSubTotal.reduce(add, 0);
+  function add(a, b) {
+    return a + b;
+  }
+  document.getElementById('grandTotal').innerHTML = "Your Current SubTotal: $" + itemGrandTotal.toFixed(2);
 }
 
 function adderItemFour() {
-  ItemFourSubTotal = document.getElementById('itemFourQty').value * itemFourPrice;
-  console.log(ItemFourSubTotal);
+  itemFourSubTotal = document.getElementById('itemFourQty').value * itemFourPrice;
+  console.log(itemGrandTotal);
+  console.log(itemFourSubTotal);
   const liLog = document.createElement('li'); //Creating list item here
-  const textLog = document.createTextNode(itemFourName + " x " + document.getElementById('itemFourQty').value +" = $"+ ItemFourSubTotal); //pulling occupant from guest log array
+  const textLog = document.createTextNode(itemFourName + " x " + document.getElementById('itemFourQty').value +" = $"+ itemFourSubTotal.toFixed(2)); //pulling occupant from guest log array
   liLog.appendChild(textLog); //appending to new li
   const guestLogText = document.getElementById('List'); //grabbing parent node 
   guestLogText.appendChild(liLog); //appending li to said node
+  itemGrandSubTotal.push(itemOneSubTotal);
+  itemGrandTotal = itemGrandSubTotal.reduce(add, 0);
+  function add(a, b) {
+    return a + b;
+  }
+  document.getElementById('grandTotal').innerHTML = "Your Current SubTotal: $" + itemGrandTotal.toFixed(2);
 }
 
 function adderItemFive() {
-  ItemFiveSubTotal = document.getElementById('itemFiveQty').value * itemFivePrice;
-  console.log(ItemFiveSubTotal);
+  itemFiveSubTotal = document.getElementById('itemFiveQty').value * itemFivePrice;
+  console.log(itemGrandTotal);
+  console.log(itemFiveSubTotal);
   const liLog = document.createElement('li'); //Creating list item here
-  const textLog = document.createTextNode(itemFiveName + " x " + document.getElementById('itemFiveQty').value +" = $"+ ItemFiveSubTotal); //pulling occupant from guest log array
+  const textLog = document.createTextNode(itemFiveName + " x " + document.getElementById('itemFiveQty').value +" = $"+ itemFiveSubTotal.toFixed(2)); //pulling occupant from guest log array
   liLog.appendChild(textLog); //appending to new li
   const guestLogText = document.getElementById('List'); //grabbing parent node 
   guestLogText.appendChild(liLog); //appending li to said node
+  itemGrandSubTotal.push(itemOneSubTotal);
+  itemGrandTotal = itemGrandSubTotal.reduce(add, 0);
+  function add(a, b) {
+    return a + b;
+  }
+  document.getElementById('grandTotal').innerHTML = "Your Current SubTotal: $" + itemGrandTotal.toFixed(2);
 }
 
 function adderItemSix() {
-  ItemSixSubTotal = document.getElementById('itemSixQty').value * itemSixPrice;
-  console.log(ItemSixSubTotal);
+  itemSixSubTotal = document.getElementById('itemSixQty').value * itemSixPrice;
+  console.log(itemGrandTotal);
+  console.log(itemSixSubTotal);
   const liLog = document.createElement('li'); //Creating list item here
-  const textLog = document.createTextNode(itemSixName + " x " + document.getElementById('itemSixQty').value +" = $"+ ItemSixSubTotal); //pulling occupant from guest log array
+  const textLog = document.createTextNode(itemSixName + " x " + document.getElementById('itemSixQty').value +" = $"+ itemSixSubTotal.toFixed(2)); //pulling occupant from guest log array
   liLog.appendChild(textLog); //appending to new li
   const guestLogText = document.getElementById('List'); //grabbing parent node 
   guestLogText.appendChild(liLog); //appending li to said node
+  itemGrandSubTotal.push(itemOneSubTotal);
+  itemGrandTotal = itemGrandSubTotal.reduce(add, 0);
+  function add(a, b) {
+    return a + b;
+  }
+  document.getElementById('grandTotal').innerHTML = "Your Current SubTotal: $" + itemGrandTotal.toFixed(2);
 }
 function checkOut() {
-  itemGrandTotal = ItemOneSubTotal + ItemTwoSubTotal + ItemThreeSubTotal + ItemFourSubTotal + ItemFiveSubTotal + ItemSixSubTotal * 1.04712;
-}
-/* var sum = priceArr.reduce(add,0) ;
-  function add(a,b) {
-    return a+b;
+  var itemTally = document.getElementById('List').innerText;
+    if (!itemGrandTotal){ 
+   window.alert("No Items in cart, please order something!");
+    }
+  else{
+    localStorage.setItem('totalItemSum', itemGrandTotal);
+    localStorage.setItem('totalItemTally', itemTally)
+    location.href = "Checkout.html";
   }
-  window.alert(sum);
-*/
+}
