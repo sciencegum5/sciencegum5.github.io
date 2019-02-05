@@ -183,7 +183,7 @@ function adderItemSix() {
 }
 function checkOut() {
   var itemTally = document.getElementById('List').innerText;
-    if (!itemGrandTotal){ 
+    if (itemGrandTotal <= 0){ 
    window.alert("No Items in cart, please order something!");
     }
   else{
