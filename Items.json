@@ -3,32 +3,32 @@
         "salmonBurger": {
             "name": "Salmon Burger",
             "price": 7.78,
-            "description": "a delicious Burger"
+            "description": "a delicious Salmon Burger fresh from Alaska"
         },
         "balmonBurger": {
-            "name": "Balmon Burger",
-            "price": 7.71,
-            "description": "a delicious Burger"
+            "name": "Abel Burger",
+            "price": 0.71,
+            "description": "Makes you magically disappear from school for excessive periods of time"
         },
         "galmonBurger": {
-            "name": "Galmon Burger",
+            "name": "Bao Burger",
             "price": 7.72,
-            "description": "a delicious Burger"
+            "description": "Grants you the powers of a CSS master"
         },
         "palmonBurger": {
-            "name": "Palmon Burger",
-            "price": 7.73,
-            "description": "a delicious Burger"
+            "name": "The Teapot",
+            "price": 4.18,
+            "description": "This item turns you into a teapot"
         },
         "zalmonBurger": {
-            "name": "Zalmon Burger",
+            "name": "The Design Burger",
             "price": 7.74,
-            "description": "a delicious Burger"
+            "description": "Contains the spirit of the assignment to boost code quality"
         },
         "calmonBurger": {
-            "name": "Calmon Burger",
+            "name": "Kam Burger",
             "price": 7.75,
-            "description": "a delicious Burger"
+            "description": "This burger grants you the power of the hardshell crab"
         }
     }]
 }
