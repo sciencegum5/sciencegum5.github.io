@@ -1,0 +1,92 @@
+<html>
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Item Management</title>
+  <link rel="stylesheet" href="restaurantStyle.css">
+</head>
+
+<body>
+  <div id="navbar">
+    <h1>Kahanamoku restaurant</h1>
+  </div>
+  <div id='ItemTable'>
+    <div id='ItemDiv'>
+      <h1 id="itemOneName">Item One</h1>
+      <p id="itemOneDesc">"Item Description"</p>
+      <p id="itemOnePrice">"Price"</p>
+      <input id="itemOneQty" type="number">
+      <br>
+      <input type="button" id="addButtonOne" value="Add to order!" onclick=javascript:adderItemOne();>
+    </div>
+
+    <div id='ItemDiv'>
+      <h1 id="itemTwoName">Item Two</h1>
+      <p id="itemTwoDesc">"Item Description"</p>
+      <p id="itemTwoPrice">"Price"</p>
+      <input id="itemTwoQty" type="number">
+      <br>
+      <input type="button" id="addButtonTwo" value="Add to order!" onclick=javascript:adderItemTwo();>
+  </div>
+
+    <div id='ItemDiv'>
+      <h1 id="itemThreeName">Item Three</h1>
+      <p id="itemThreeDesc">"Item Description"</p>
+      <p id="itemThreePrice">"Price"</p>
+      <input id="itemThreeQty" type="number">
+      <br>
+      <input type="button" id="addButtonThree" value="Add to order!" onclick=javascript:adderItemThree();>
+   </div>
+
+    <div id='ItemDiv'>
+      <h1 id="itemFourName" >Item Four</h1>
+      <p id="itemFourDesc">"Item Description"</p>
+      <p id="itemFourPrice">"Price"</p>
+      <input id="itemFourQty" type="number">
+      <br>
+      <input type="button" id="addButtonFour" value="Add to order!" onclick=javascript:adderItemFour();>
+    </div>
+
+    <div id='ItemDiv'>
+      <h1 id="itemFiveName">Item Five</h1>
+      <p id="itemFiveDesc">"Item Description"</p>
+      <p id="itemFivePrice">"Price"</p>
+      <input id="itemFiveQty" type="number">
+      <br>
+      <input type="button" id="addButtonFive" value="Add to order!" onclick=javascript:adderItemFive();>
+    </div>
+
+    <div id='ItemDiv'>
+      <h1 id="itemSixName">Item Six</h1>
+      <p id="itemSixDesc">"Item Description"</p>
+      <p id="itemSixPrice">"Price"</p>
+      <input id="itemSixQty" type="number">
+      <br>
+      <input type="button" id="addButtonSix" value="Add to order!" onclick=javascript:adderItemSix();>
+    </div>
+
+    <div id='itemLogDiv'>
+      <h1>Total for today:</h'>
+        <ol id='List'>
+
+          </ol>
+          <p id="grandTotal"></p>
+        <input type="button" id="CheckoutButton" value="Finalize order!" onclick=javascript:checkOut();>
+    </div>
+  </div>
+  <script>
+  var previous = null;
+var current = null;
+    setInterval(function(){
+        $.getJSON("items.json", function(json){
+            current = JSON.stringify(json);
+            if (previous && current && previous!==current){
+                location.reload();
+            }
+        });
+    }, 2000);</script>
+    <script src="restaurantScript.js"></script>
+</body>
