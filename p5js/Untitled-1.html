@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>P5 MIN</title>
+    <script src="p5/p5.min.js"></script>
+</head>
+<body>
+    <script>
+            var r;
+            var g;
+            var b;
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+            var speed = 20;
+            var diameter = 205;
+            var xPos = w/2;
+            var yPos = h/2;
+            var xPos2 = w/2;
+            var yPos2 = h/2;
+        function setup(){
+            createCanvas(w,h);
+             x = w /2;
+             y = h /2;
+        }
+        function draw(){
+            if ((yPos < 10) || (yPos > h-10)||(xPos < 10)|| (xPos > w-10)){
+                yPos == h/2;
+                xPos == w/2;
+            } else {
+                xPos += random(-speed, speed);
+                yPos += random(-speed, speed);
+            }
+            if ((yPos2 < 10 )||( yPos2 > h-10) || (xPos2 < 10)|| (xPos2 > w-10)){
+                yPos2 == h/2;
+                xPos2 == w/2;
+            } else {
+                yPos2 += random(-speed, speed);
+                xPos2 += random(-speed, speed);
+            }
+             r = random(256);
+             g = random(256);
+             b = random(256);
+            fill(color(r,g,b));
+            strokeWeight(r/25);
+            ellipse(xPos ,yPos ,100,100);
+            ellipse(xPos2 ,yPos2 ,100,100);
+        }
+    </script>
+</body>
+</html>

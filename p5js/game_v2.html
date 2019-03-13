@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Game_v2</title>
+    <!--Makes a nice title on the tab-->
+    <script src="p5/p5.min.js"></script>
+    <!--references the page to the p5 library-->
+    <style>
+        body {
+            overflow: hidden;
+            /*keeps scroll bars from appearing*/
+            padding: 0;
+            /*ensures no gaps appearon page around edges*/
+            margin: 0;
+            /*ensures no gaps appearon page around edges*/
+        }
+
+        h1 {
+            color: azure;
+            position: fixed;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        //we could refer to an external js file but i would like to keep it all on one simple file
+        var userSpeed = Number(prompt('select your speed ,10-100')); //sensitivity of movement
+        var w = window.innerWidth; //defines window size
+        var h = window.innerHeight; //defines window sized
+        var r; //Random color values (left blank for definition in the function)
+        var g; //Random color values (left blank for definition in the function)
+        var b; //Random color values (left blank for definition in the function)
+        var twor; //2nd Random color values (left blank for definition in the function)
+        var twog; //2nd Random color values (left blank for definition in the function)
+        var twob; //2nd Random color values (left blank for definition in the function)
+        var d; //distance value
+        var ball = new ball(); //global object is created here
+        var ballTwo = new ballTwo(); //another one is created here
+        function setup() { //runs once at startup
+            createCanvas(w, h); //creates area as big as window
+            background(0); //makes a black background
+        }
+
+        function draw() { //runs at 60Hz
+            //background(0); //makes a black background
+            ball.show(); //makes the ball appear by calling the function  in the object
+            ball.move(); //allows the ball to move
+            ball.position(); //displays ball position
+            ballTwo.show(); //makes the second ball appear
+            ballTwo.move(); //allows the ball to move
+            ballTwo.contact(); // stops game on contact
+        }
+
+        function ball() {
+            this.x = 150; //sets x position
+            this.y = 150; //sets y position
+            this.show = function () { //makes the function that allows the ball to be shown
+                fill(color(r,g,b)); //makes the ball red
+                strokeWeight(0);
+                ellipse(this.x, this.y, 50, 50); //makes the ball
+
+            }
+            this.move = function () {
+                if ((keyIsDown(65)) && (this.x > 0)) { //checks if box is too far left, if to far left stop moving
+                    this.x -= userSpeed; //moves player left
+                    r = random(256); //random color selection
+                    g = random(256); //random color selection
+                    b = random(256); //random color selection
+                }
+                if ((keyIsDown(68)) && (this.x < w - 50)) { //checks if player is too far right
+                    this.x += userSpeed; //moves player right
+                    r = random(256); //random color selection
+                    g = random(256); //random color selection
+                    b = random(256); //random color selection
+                }
+                if ((keyIsDown(87)) && (this.y > 0)) { //checks if player is too far up
+                    this.y -= userSpeed; //moves player up
+                    r = random(256); //random color selection
+                    g = random(256); //random color selection
+                    b = random(256); //random color selection
+                }
+                if ((keyIsDown(83)) && (this.y < h - 50)) { //checks if player is too far down
+                    this.y += userSpeed; //moves player down
+                    r = random(256); //random color selection
+                    g = random(256); //random color selection
+                    b = random(256); //random color selection
+                }
+                this.position = function () { //seperate function for displaying the location of the object
+                    document.getElementById('coo').innerHTML = "(" + this.x + "," + this.y + ")" + d; //makes the element into coordia 
+                }
+            }
+        }
+        function ballTwo() {
+            this.x = 100; //sets x position
+            this.y = 100; //sets y position
+            this.show = function () { //allows tthe second ball to be shown
+                fill(color(twor,twog,twob)); //makes the ball blue
+                strokeWeight(0);
+                
+                ellipse(this.x, this.y, 50, 50); //makes the the circle
+
+            }
+            this.move = function () {
+                if ((keyIsDown(74)) && (this.x > 0)) { //checks if box is too far left, if to far left stop moving
+                    this.x -= userSpeed; //moves player left
+                    twor = random(256); //random color selection
+                    twog = random(256); //random color selection
+                    twob = random(256); //random color selection
+                }
+                if ((keyIsDown(76)) && (this.x < w - 50)) { //checks if player is too far right
+                    this.x += userSpeed; //moves player right
+                    twor = random(256); //random color selection
+                    twog = random(256); //random color selection
+                    twob = random(256); //random color selection
+                }
+                if ((keyIsDown(73)) && (this.y > 0)) { //checks if player is too far up
+                    this.y -= userSpeed; //moves player up
+                    twor = random(256); //random color selection
+                    twog = random(256); //random color selection
+                    twob = random(256); //random color selection
+                }
+                if ((keyIsDown(75)) && (this.y < h - 50)) { //checks if player is too far down
+                    this.y += userSpeed; //moves player down
+                    twor = random(256); //random color selection
+                    twog = random(256); //random color selection
+                    twob = random(256); //random color selection
+                }
+                this.contact = function () {
+                    d = int(dist(this.x, this.y, ball.x, ball.y)); //calculates the distance of the objects
+                    if (d <= 49) { //checks in objects have collided
+                        window.alert('ez gg'); //game over message
+                        noLoop(); //stops script
+                    }
+                }
+
+            }
+        }
+
+    </script>
+    <h1 id="coo"></h1>
+    <!--made an element to display coordinates-->
+</body>
+
+</html>

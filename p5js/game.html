@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>P5 game</title>
+    <!--Makes a nice title on the tab-->
+    <script src="p5/p5.min.js"></script>
+    <!--references the page to the p5 library-->
+    <style>
+        body {
+            overflow: hidden;
+            /*keeps scroll bars from appearing*/
+            padding: 0;
+            /*ensures no gaps appearon page around edges*/
+            margin: 0;
+            /*ensures no gaps appearon page around edges*/
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        //we could refer to an external js file but i would like to keep it all on one simple file
+        var w = window.innerWidth; //defines window size
+        var h = window.innerHeight; //defines window size
+        var posX = w / 2; //X position of player
+        var posY = h / 2; //Y position of player
+        var r = 41; //Random color values (left blank for definition in the function)
+        var g = 128; //Random color values (left blank for definition in the function)
+        var b = 185; //Random color values (left blank for definition in the function)
+        var userSpeed = Number(prompt('select your speed ,10-100')); //sensitivity of movement
+        var userWidth = Number(prompt('select a size, 1-100')); //size of player
+        function setup() { //runs once at startup
+            createCanvas(w, h); //creates area as big as window
+            noCursor(); //removes cursor
+        }
+
+        function draw() { //runs at 60Hz
+            background(0); //makes a black background
+            fill(color(r, g, b)); //makes the rectangle below whatever color is defined
+            rect(posX, posY, userWidth, userWidth, 5); //creates a box at coordinates (posX, posY) with a size of userwidth x userwidth 
+            fill(color(r, g, b)); //makes the circle below whatever color is defined
+            ellipse(mouseX, mouseY, 10, 10); //makes a small circle on the player's mouse after hiding it
+            stroke(r, g, b); //colors line
+            line(posX + userWidth / 2, posY + userWidth / 2, mouseX, mouseY); //line from mouse to box
+            if ((keyIsDown(65)) && (posX > 0)) { //checks if box is too far left, if to far left stop moving
+                posX -= userSpeed; //moves player left
+            }
+            if ((keyIsDown(68)) && (posX < w - userWidth)) { //checks if player is too far right
+                posX += userSpeed; //moves player right
+            }
+            if ((keyIsDown(87)) && (posY > 0)) { //checks if player is too far up
+                posY -= userSpeed; //moves player up
+            }
+            if ((keyIsDown(83)) && (posY < h - userWidth)) { //checks if player is too far down
+                posY += userSpeed; //moves player down
+            }
+            if (keyIsDown(32)) { //continuous color randomization
+                r = random(256); //random color selection
+                g = random(256); //random color selection
+                b = random(256); //random color selection
+            }
+            //i took the code below from the ref
+            // d is the length of the line
+            // the distance from point 1 to point 2.
+            var d = int(dist(posX, posY, mouseX, mouseY));
+
+            // Let's write d along the line we are drawing!
+            push();
+            translate((posX + mouseX) / 2, (posY + mouseY) / 2);
+            rotate(atan2(mouseY - posY, mouseX - posX));
+            text(nfc(d, 1), 0, -5);
+            pop();
+            // Fancy!
+        }
+
+        function keyPressed() {
+            if (keyCode == "81") { //randomly changes color once 
+                r = random(256); //random color selection
+                g = random(256); //random color selection
+                b = random(256); //random color selection
+            }
+            if (keyCode == "113") { //F2 captures a screencap of the game
+                save("gamescreencap.jpg"); //the saving process is done here
+            }
+        }
+    </script>
+</body>
+
+</html>
