@@ -16,7 +16,55 @@
             /*ensures no gaps appearon page around edges*/
             margin: 0;
             /*ensures no gaps appearon page around edges*/
+            background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+            background-size: 400% 400%;
+            -webkit-animation: Gradient 15s ease infinite;
+            -moz-animation: Gradient 15s ease infinite;
+            animation: Gradient 15s ease infinite;
         }
+
+        @-webkit-keyframes Gradient {
+            0% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            100% {
+                background-position: 0% 50%
+            }
+        }
+
+        @-moz-keyframes Gradient {
+            0% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            100% {
+                background-position: 0% 50%
+            }
+        }
+
+        @keyframes Gradient {
+            0% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            100% {
+                background-position: 0% 50%
+            }
+        }
+
 
         h1 {
             color: azure;
@@ -41,18 +89,19 @@
         var Pdist; //player distance value
         var ball = new ball(); //global object is created here
         var ballTwo = new ballTwo(); //another one is created here
-         
-        var v1 ;
+
+        var v1;
         //var bullet = new bullet();
         var img;
         var ts = 48;
+
         function preload() {
             twor = random(256); //random color selection
-                    twog = random(256); //random color selection
-                    twob = random(256); //random color selection
-                    r = random(256); //random color selection
-                    g = random(256); //random color selection
-                    b = random(256); //random color selection
+            twog = random(256); //random color selection
+            twob = random(256); //random color selection
+            r = random(256); //random color selection
+            g = random(256); //random color selection
+            b = random(256); //random color selection
             img = loadImage('media/chicken.png');
         }
 
@@ -60,12 +109,12 @@
             createCanvas(w, h); //creates area as big as window
             //background(0); //makes a black background
             img.loadPixels();
-            
+
         }
 
         function draw() { //runs at 60Hz
-            background(0); //makes a black background
-            v1 = createVector(mouseX + ballTwo.x, mouseY + ballTwo.ylllllllljk);
+            background(88); //makes a black background
+
             ball.show(); //makes the ball appear by calling the function  in the object
             ball.move(); //allows the ball to move
             ball.position(); //displays ball position
@@ -75,8 +124,8 @@
         }
 
         function ball() {
-            this.x = w/2; //sets x position
-            this.y = h/2; //sets y position
+            this.x = w / 2; //sets x position
+            this.y = h / 2; //sets y position
             this.show = function () { //makes the function that allows the ball to be shown
                 imageMode(CENTER);
                 image(img, this.x, this.y, 50, 50);
@@ -112,33 +161,33 @@
             this.positionVector;
             this.show = function () { //allows tthe second ball to be shown
                 translate(this.x, this.y);
-    rotate(this.angle);
-    this.positionVector = this.x + this.y /2;
-    this.gunAngle = v1.heading();
-    // Draw treads
-    fill('#3C4A59');
-    stroke(0);
-    rectMode(CENTER);
-    let d = ts * 0.33;
-    rect(0, d, ts * 1.15, ts * 0.2);
-    rect(0, -d, ts * 1.15, ts * 0.2);
+                //this.gunAngle = createVector(mouseX , mouseY);
+                //this.positionVector = createVector(this.x , this.y);
+                rotate(this.angle);
+                // Draw treads
+                fill('#3C4A59');
+                stroke(0);
+                rectMode(CENTER);
+                var d = ts * 0.33;
+                rect(0, d, ts * 1.15, ts * 0.2);
+                rect(0, -d, ts * 1.15, ts * 0.2);
 
 
-    // Draw tank body
-    fill(r,g,b);
-    rect(0, 0, ts, ts * 0.7, ts * 0.15);
+                // Draw tank body
+                fill(r, g, b);
+                rect(0, 0, ts, ts * 0.7, ts * 0.15);
 
-    rotate(this.gunAngle, this.positionVector );
+                //rotate(this.gunAngle.angleBetween(this.positionVector) - this.angle);
 
-    // Draw barrel
-    let rota = ts * 0.35;
-    fill('#808080');
-    rect(rota, 0, rota * 2, ts * 0.2);
+                // Draw barrel
+                var rota = ts * 0.35;
+                fill('#808080');
+                rect(rota, 0, rota * 2, ts * 0.2);
 
-    // Draw turret
-    fill(twor,twog,twob);
-    ellipseMode(CENTER)
-    ellipse(0, 0, ts * 0.5, ts * 0.5);
+                // Draw turret
+                fill(twor, twog, twob);
+                ellipseMode(CENTER)
+                ellipse(0, 0, ts * 0.5, ts * 0.5);
 
 
             }
@@ -168,10 +217,11 @@
                 }
 
             }
+
             function bullet() {
                 push();
 
-    
+
             }
         }
     </script>
