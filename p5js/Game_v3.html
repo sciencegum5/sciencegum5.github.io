@@ -28,7 +28,8 @@
 <body>
     <script>
         //we could refer to an external js file but i would like to keep it all on one simple file
-        var userSpeed = Number(prompt('select your speed ,10-100')); //sensitivity of movement
+        var userSpeed = 8; //sensitivity of movement for player
+        var tankSpeed = 2; //sensitivity of movement for tank
         var w = window.innerWidth; //defines window size
         var h = window.innerHeight; //defines window sized
         var r; //Random color values (left blank for definition in the function)
@@ -37,12 +38,21 @@
         var twor; //2nd Random color values (left blank for definition in the function)
         var twog; //2nd Random color values (left blank for definition in the function)
         var twob; //2nd Random color values (left blank for definition in the function)
-        var d; //distance value
+        var Pdist; //player distance value
         var ball = new ball(); //global object is created here
         var ballTwo = new ballTwo(); //another one is created here
+         
+        var v1 ;
+        //var bullet = new bullet();
         var img;
-
+        var ts = 48;
         function preload() {
+            twor = random(256); //random color selection
+                    twog = random(256); //random color selection
+                    twob = random(256); //random color selection
+                    r = random(256); //random color selection
+                    g = random(256); //random color selection
+                    b = random(256); //random color selection
             img = loadImage('media/chicken.png');
         }
 
@@ -50,10 +60,12 @@
             createCanvas(w, h); //creates area as big as window
             //background(0); //makes a black background
             img.loadPixels();
+            
         }
 
         function draw() { //runs at 60Hz
             background(0); //makes a black background
+            v1 = createVector(mouseX , mouseY);
             ball.show(); //makes the ball appear by calling the function  in the object
             ball.move(); //allows the ball to move
             ball.position(); //displays ball position
@@ -87,7 +99,7 @@
 
                 }
                 this.position = function () { //seperate function for displaying the location of the object
-                    document.getElementById('coo').innerHTML = "(" + this.x + "," + this.y + ")" + d; //makes the element into coordia 
+                    document.getElementById('coo').innerHTML = "(" + this.x + "," + this.y + ")" + Pdist; //makes the element into coordia 
                 }
             }
         }
@@ -95,46 +107,71 @@
         function ballTwo() {
             this.x = 100; //sets x position
             this.y = 100; //sets y position
+            this.angle = 0;
+            this.gunAngle;
+            this.positionVector;
             this.show = function () { //allows tthe second ball to be shown
-                fill(color(twor, twog, twob)); //makes the ball blue
-                strokeWeight(0);
+                translate(this.x, this.y);
+    rotate(this.angle);
+    this.positionVector = createVector(this.x, this.y);
+    this.gunAngle = v1.heading();
+    // Draw treads
+    fill('#3C4A59');
+    stroke(0);
+    rectMode(CENTER);
+    let d = ts * 0.33;
+    rect(0, d, ts * 1.15, ts * 0.2);
+    rect(0, -d, ts * 1.15, ts * 0.2);
 
-                ellipse(this.x, this.y, 50, 50); //makes the the circle
+
+    // Draw tank body
+    fill(r,g,b);
+    rect(0, 0, ts, ts * 0.7, ts * 0.15);
+
+    rotate(this.gunAngle, this.position );
+
+    // Draw barrel
+    let rota = ts * 0.35;
+    fill('#808080');
+    rect(rota, 0, rota * 2, ts * 0.2);
+
+    // Draw turret
+    fill(twor,twog,twob);
+    ellipseMode(CENTER)
+    ellipse(0, 0, ts * 0.5, ts * 0.5);
+
 
             }
             this.move = function () {
                 if ((keyIsDown(74)) && (this.x > 0)) { //checks if box is too far left, if to far left stop moving
-                    this.x -= userSpeed; //moves player left
-                    twor = random(256); //random color selection
-                    twog = random(256); //random color selection
-                    twob = random(256); //random color selection
+                    this.x -= tankSpeed; //moves player left
+                    this.angle = TWO_PI / 2;
                 }
                 if ((keyIsDown(76)) && (this.x < w - 50)) { //checks if player is too far right
-                    this.x += userSpeed; //moves player right
-                    twor = random(256); //random color selection
-                    twog = random(256); //random color selection
-                    twob = random(256); //random color selection
+                    this.x += tankSpeed; //moves player right
+                    this.angle = TWO_PI;
                 }
                 if ((keyIsDown(73)) && (this.y > 0)) { //checks if player is too far up
-                    this.y -= userSpeed; //moves player up
-                    twor = random(256); //random color selection
-                    twog = random(256); //random color selection
-                    twob = random(256); //random color selection
+                    this.y -= tankSpeed; //moves player up
+                    this.angle = PI * 1.5;
                 }
                 if ((keyIsDown(75)) && (this.y < h - 50)) { //checks if player is too far down
-                    this.y += userSpeed; //moves player down
-                    twor = random(256); //random color selection
-                    twog = random(256); //random color selection
-                    twob = random(256); //random color selection
+                    this.y += tankSpeed; //moves player down
+                    this.angle = TWO_PI / 4;
                 }
                 this.contact = function () {
-                    d = int(dist(this.x, this.y, ball.x, ball.y)); //calculates the distance of the objects
-                    if (d <= 49) { //checks in objects have collided
+                    Pdist = int(dist(this.x, this.y, ball.x, ball.y)); //calculates the distance of the objects
+                    if (Pdist <= 49) { //checks in objects have collided
                         window.alert('ez gg'); //game over message
                         noLoop(); //stops script
                     }
                 }
 
+            }
+            function bullet() {
+                push();
+
+    
             }
         }
     </script>
