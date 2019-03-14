@@ -65,7 +65,7 @@
 
         function draw() { //runs at 60Hz
             background(0); //makes a black background
-            v1 = createVector(mouseX , mouseY);
+            v1 = createVector(mouseX + ballTwo.x, mouseY + ballTwo.ylllllllljk);
             ball.show(); //makes the ball appear by calling the function  in the object
             ball.move(); //allows the ball to move
             ball.position(); //displays ball position
@@ -113,7 +113,7 @@
             this.show = function () { //allows tthe second ball to be shown
                 translate(this.x, this.y);
     rotate(this.angle);
-    this.positionVector = createVector(this.x, this.y);
+    this.positionVector = this.x + this.y /2;
     this.gunAngle = v1.heading();
     // Draw treads
     fill('#3C4A59');
@@ -128,7 +128,7 @@
     fill(r,g,b);
     rect(0, 0, ts, ts * 0.7, ts * 0.15);
 
-    rotate(this.gunAngle, this.position );
+    rotate(this.gunAngle, this.positionVector );
 
     // Draw barrel
     let rota = ts * 0.35;
