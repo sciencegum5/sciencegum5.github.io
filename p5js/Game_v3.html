@@ -67,8 +67,9 @@
 
 
         h1 {
+            display: inline;
             color: azure;
-            position: fixed;
+            position: inherit;
         }
     </style>
 </head>
@@ -218,14 +219,27 @@
 
             }
 
-            function bullet() {
-                push();
+            
+                var myVar = setInterval(myTimer, 1000);
+                var timer = 6;
+function myTimer() {
+  if (timer > 0){
+  --timer;
+  document.getElementById("demo").innerHTML = timer;}
+  else if (timer < 0) {
+    noLoop();
+  }
+  else{
+      window.alert('times up! alien wins!');
+  }
+
+}
 
 
             }
-        }
+        
     </script>
-    <h1 id="coo"></h1>
+    <h1 id="coo"></h1><h1> </h1><h1 id="demo"></h1>
     <!--made an element to display coordinates-->
     <h2 id="p5_loading">Loading... you really shouldnt be seeing this unless theres a problem with the graphics</h1>
 </body>
