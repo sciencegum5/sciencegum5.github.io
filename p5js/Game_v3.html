@@ -7,6 +7,7 @@
     <title>Game_v3</title>
     <!--Makes a nice title on the tab-->
     <script src="p5/p5.min.js"></script>
+    <script src="p5/p5.collide2d.min.js"></script>
     <!--references the page to the p5 library-->
     <style>
         body {
@@ -158,12 +159,9 @@
             this.x = 100; //sets x position
             this.y = 100; //sets y position
             this.angle = 0;
-            this.gunAngle;
-            this.positionVector;
             this.show = function () { //allows tthe second ball to be shown
                 translate(this.x, this.y);
-                //this.gunAngle = createVector(mouseX , mouseY);
-                //this.positionVector = createVector(this.x , this.y);
+               
                 rotate(this.angle);
                 // Draw treads
                 fill('#3C4A59');
@@ -173,17 +171,14 @@
                 rect(0, d, ts * 1.15, ts * 0.2);
                 rect(0, -d, ts * 1.15, ts * 0.2);
 
-
                 // Draw tank body
                 fill(r, g, b);
                 rect(0, 0, ts, ts * 0.7, ts * 0.15);
 
-                //rotate(this.gunAngle.angleBetween(this.positionVector) - this.angle);
-
                 // Draw barrel
-                var rota = ts * 0.35;
+                var bars = ts * 0.35;
                 fill('#808080');
-                rect(rota, 0, rota * 2, ts * 0.2);
+                rect(bars, 0, bars * 2, ts * 0.2);
 
                 // Draw turret
                 fill(twor, twog, twob);
@@ -219,27 +214,27 @@
 
             }
 
-            
-                var myVar = setInterval(myTimer, 1000);
-                var timer = 6;
+            var timer = 6;
+            var myVar = setInterval(myTimer, 1000);
+               
 function myTimer() {
   if (timer > 0){
   --timer;
   document.getElementById("demo").innerHTML = timer;}
-  else if (timer < 0) {
-    noLoop();
+  else {
+    window.alert('times up! alien wins!');
+    clearInterval(myVar);
   }
-  else{
-      window.alert('times up! alien wins!');
-  }
+  
 
 }
 
 
-            }
-        
+        }
     </script>
-    <h1 id="coo"></h1><h1> </h1><h1 id="demo"></h1>
+    <h1 id="coo"></h1>
+    <h1> </h1>
+    <h1 id="demo"></h1>
     <!--made an element to display coordinates-->
     <h2 id="p5_loading">Loading... you really shouldnt be seeing this unless theres a problem with the graphics</h1>
 </body>
