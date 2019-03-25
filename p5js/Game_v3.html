@@ -204,10 +204,12 @@
                     this.y += tankSpeed; //moves player down
                     this.angle = TWO_PI / 4;
                 }
+                this.xd = noLoop();
                 this.contact = function () {
                     Pdist = int(dist(this.x, this.y, ball.x, ball.y)); //calculates the distance of the objects
                     if (Pdist <= 49) { //checks in objects have collided
                         window.alert('ez gg'); //game over message
+                        clearInterval(myVar);
                         noLoop(); //stops script
                     }
                 }
@@ -224,6 +226,7 @@ function myTimer() {
   else {
     window.alert('times up! alien wins!');
     clearInterval(myVar);
+    ball.xd();
   }
   
 
