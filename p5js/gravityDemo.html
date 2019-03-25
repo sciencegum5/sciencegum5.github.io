@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>gravity demo</title>
+    <!--Makes a nice title on the tab-->
+    <script src="p5/p5.min.js"></script>
+    <script src="p5/p5.collide2d.min.js"></script>
+    <!--references the page to the p5 library-->
+    <style>
+        body {
+            overflow: hidden;
+            /*keeps scroll bars from appearing*/
+            padding: 0;
+            /*ensures no gaps appearon page around edges*/
+            margin: 0;
+            /*ensures no gaps appearon page around edges*/
+            background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+            background-size: 400% 400%;
+            -webkit-animation: Gradient 15s ease infinite;
+            -moz-animation: Gradient 15s ease infinite;
+            animation: Gradient 15s ease infinite;
+        }
+
+        @-webkit-keyframes Gradient {
+            0% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            100% {
+                background-position: 0% 50%
+            }
+        }
+
+        @-moz-keyframes Gradient {
+            0% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            100% {
+                background-position: 0% 50%
+            }
+        }
+
+        @keyframes Gradient {
+            0% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            100% {
+                background-position: 0% 50%
+            }
+        }
+
+
+        h1 {
+            display: inline;
+            color: azure;
+            position: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        //we could refer to an external js file but i would like to keep it all on one simple file
+
+        var w = window.innerWidth; //defines window size
+        var h = window.innerHeight; //defines window sized
+
+        var ball = new ball(); //global object is created here
+
+        var img;
+        var ts = 48;
+
+        function preload() {
+            img = loadImage('media/chicken.png');
+        }
+
+        function setup() { //runs once at startup
+            createCanvas(w, h); //creates area as big as window
+            //background(0); //makes a black background
+            img.loadPixels();
+
+        }
+
+        function draw() { //runs at 60Hz
+            background(255); //makes a black background
+            ball.update();
+            ball.show(); //makes the ball appear by calling the function  in the object
+        
+        }
+
+        function ball() {
+            this.x = w / 2; //sets x position
+            this.y = 0; //sets y position
+            this.gravity = 1;
+            this.lift = -10;
+            this.velocity = 0;
+            this.show = function () { //makes the function that allows the ball to be shown
+                imageMode(CENTER);
+                image(img, this.x, this.y, 50, 50);
+            }
+            this.up = function () {
+                this.velocity += this.lift;
+            }
+            this.update = function () {
+                this.velocity += this.gravity;
+                this.y += this.velocity;
+                this.velocity *= 0.9;
+                if (this.y > h) {
+                    this.y = h;
+                    this.velocity = 0;
+                }
+                if (this.y < 0) {
+                    this.velocity = 0;
+                    this.y = 0;
+                }
+            }
+        }
+
+        function keyPressed() {
+            if (keyCode === 32) {
+                ball.up();
+            }
+        }
+    </script>
+    <h1 id="coo"></h1>
+    <h1> </h1>
+    <h1 id="demo"></h1>
+    <!--made an element to display coordinates-->
+    <h2 id="p5_loading">Loading... you really shouldnt be seeing this unless theres a problem with the graphics</h1>
+</body>
+
+</html>
