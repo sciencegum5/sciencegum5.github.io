@@ -78,7 +78,7 @@
 <body>
     <script>
         //we could refer to an external js file but i would like to keep it all on one simple file
-
+        var userSpeed = 8; //sensitivity of movement for player
         var w = window.innerWidth; //defines window size
         var h = window.innerHeight; //defines window sized
 
@@ -102,6 +102,7 @@
             background(255); //makes a black background
             ball.update();
             ball.show(); //makes the ball appear by calling the function  in the object
+            ball.move();
         
         }
 
@@ -129,6 +130,20 @@
                 if (this.y < 0) {
                     this.velocity = 0;
                     this.y = 0;
+                }
+                this.move = function () {
+                if ((keyIsDown(65)) && (this.x > 0)) { //checks if box is too far left, if to far left stop moving
+                    this.x -= userSpeed; //moves player left
+
+                }
+                if ((keyIsDown(68)) && (this.x < w - 50)) { //checks if player is too far right
+                    this.x += userSpeed; //moves player right
+
+                }
+                }
+               
+                this.position = function () { //seperate function for displaying the location of the object
+                    document.getElementById('coo').innerHTML = "(" + this.x + "," + this.y + ")" + Pdist; //makes the element into coordia 
                 }
             }
         }
