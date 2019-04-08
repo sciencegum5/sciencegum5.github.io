@@ -120,6 +120,7 @@
                 //noLoop();
                 console.log("barrier hit detected!");
                 barrier.dodgeCount = 0;
+                
             }
             hit = collideRectCircle(platform.x, platform.y, platform.width, platform.height, ball.x, ball.y, 50);
             if (hit == true) {
@@ -128,7 +129,9 @@
                 r = random(256); //random color selection
             g = random(256); //random color selection
             b = random(256); //random color selection
+            platform.hit ++;
             }
+            document.getElementById('coo').innerHTML = "barriers dodged: [" + barrier.dodgeCount + "]" + "bounces: [" + platform.hit + "]" ;
         }
 
 
@@ -139,8 +142,8 @@
             }
         }
     </script>
-    <!--<h1 id="coo"></h1>
-    <h1> </h1>
+    <h1 id="coo"></h1>
+    <!--<h1> </h1>
     <h1 id="demo"></h1>-->
     <!--made an element to display coordinates-->
     <h2 id="p5_loading">Loading... you really shouldnt be seeing this unless theres a problem with the graphics</h1>

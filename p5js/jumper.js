@@ -34,8 +34,6 @@ function ball() {
         }
         }
        
-        this.position = function () { //seperate function for displaying the location of the object
-            document.getElementById('coo').innerHTML = "(" + this.x + "," + this.y + ")" + Pdist; //makes the element into coordia 
-        }
+        
     }
 }
