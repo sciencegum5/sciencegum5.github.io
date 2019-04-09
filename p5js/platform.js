@@ -1,6 +1,6 @@
 function platform() {
-    this.height = 75;
-    this.width = 75;
+    this.height = 32;
+    this.width = 100;
     this.x = w/2 - this.width/2;
     this.y = h/2 - this.height/2;
     this.hit = 0;

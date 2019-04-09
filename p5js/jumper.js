@@ -2,11 +2,12 @@ function ball() {
     this.x = w / 2; //sets x position
     this.y = 0; //sets y position
     this.gravity = 1;
-    this.lift = 1;
+    this.lift = -20;
     this.velocity = 0;
+    this.size =50;
     this.show = function () { //makes the function that allows the ball to be shown
         imageMode(CENTER);
-        image(img, this.x, this.y, 50, 50);
+        image(img, this.x, this.y, this.size, this.size);
     }
     this.up = function () {
         this.velocity += this.lift;
@@ -14,10 +15,10 @@ function ball() {
     this.update = function () {
         this.velocity += this.gravity;
         this.y += this.velocity;
-        this.velocity *= 1;
+        this.velocity *= 0.9;
         if (this.y > h) {
-            this.y = h;
-            this.velocity = 0;
+            this.y = h - this.size;
+            this.velocity = -10;
         }
         if (this.y < 0) {
             this.velocity = 0;
