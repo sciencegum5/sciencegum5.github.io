@@ -2,7 +2,7 @@ function ball() {
     this.x = w / 2; //sets x position
     this.y = 0; //sets y position
     this.gravity = 1;
-    this.lift = -5;
+    this.lift = 1;
     this.velocity = 0;
     this.show = function () { //makes the function that allows the ball to be shown
         imageMode(CENTER);
