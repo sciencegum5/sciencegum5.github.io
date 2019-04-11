@@ -94,11 +94,21 @@
         var ts = 48;
         var hit = false;
         var score = 0;
+        var highScoreCombo = 0;
+        var bG;
+
         function preload() {
-            img = loadImage('media/chicken.png');
+            bG = loadImage("media/space.png");
+            bG.resize(w, h);
+            
+            img = loadImage("media/chicken.png");
+            
+
         }
 
         function setup() { //runs once at startup
+            
+
             createCanvas(w, h); //creates area as big as window
             //background(0); //makes a black background
             img.loadPixels();
@@ -108,47 +118,53 @@
         }
 
         function draw() { //runs at 60Hz
-            background(128); //makes a black background
+            imageMode(CORNER);
+            background(bG); //makes a black background
             barrier.show();
             barrier.update();
             ball.update();
             ball.show(); //makes the ball appear by calling the function  in the object
             ball.move();
             platform.show();
-            score = barrier.dodgeCount + platform.hit;
+
             hit = collideRectCircle(barrier.x, barrier.y, barrier.width, barrier.height, ball.x, ball.y, 50);
             if (hit == true) {
                 //noLoop();
                 console.log("barrier hit detected!");
+                if (barrier.dodgeCount > highScoreCombo) {
+                    highScoreCombo = barrier.dodgeCount;
+                }
                 barrier.dodgeCount = 0;
-                
+
             }
             hit = collideRectCircle(platform.x, platform.y, platform.width, platform.height, ball.x, ball.y, 50);
             if (hit == true) {
                 ball.velocity = -10;
                 console.log("platform hit detected!");
                 r = random(256); //random color selection
-            g = random(256); //random color selection
-            b = random(256); //random color selection
-            platform.hit ++;
+                g = random(256); //random color selection
+                b = random(256); //random color selection
+                platform.hit++;
+
             }
-            document.getElementById('coo').innerHTML = "barriers dodged: [" + barrier.dodgeCount + "]" + "bounces: [" + platform.hit + "]" + "score: [" + score + "]" ;
+            document.getElementById('coo').innerHTML = "barriers dodged: [" + barrier.dodgeCount + "]" + "bounces: [" +
+                platform.hit + "]" + "score: [" + score + "]";
         }
         var timer = 61;
-            var myVar = setInterval(myTimer, 1000);
-               
-function myTimer() {
-  if (timer > 0){
-  --timer;
-  document.getElementById("demo").innerHTML = "Time: ["+timer+"]";
-}
-  else {
-    clearInterval(myVar);
-    localStorage.setItem('score', score);
-    localStorage.setItem('barrierCount', barrier.dodgeCount)
-    location.href = "GameOver.html";
-  }
-  }
+        var myVar = setInterval(myTimer, 1000);
+
+        function myTimer() {
+            if (timer > 0) {
+                --timer;
+                document.getElementById("demo").innerHTML = "Time: [" + timer + "]";
+                score += barrier.dodgeCount + platform.hit;
+            } else {
+                clearInterval(myVar);
+                localStorage.setItem('barrierCount', highScoreCombo);
+                localStorage.setItem('score', score);
+                location.href = "GameOver.html";
+            }
+        }
 
 
         function keyPressed() {
@@ -157,10 +173,9 @@ function myTimer() {
                 console.log("spacebar pressed");
             }
         }
-    
     </script>
     <h1 id="coo"></h1>
-    
+
     <h1 id="demo"></h1>
     <!--made an element to display coordinates-->
     <h2 id="p5_loading">Loading... you really shouldnt be seeing this unless theres a problem with the graphics</h1>
