@@ -7,6 +7,6 @@ function platform() {
     this.show = function () {
         fill(color(r,g,b));
         rect(this.x, this.y, this.width, this.height);
-        
+
     }
     }

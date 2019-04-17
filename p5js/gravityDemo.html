@@ -11,6 +11,7 @@
     <script src="barrier.js"></script>
     <script src="jumper.js"></script>
     <script src="platform.js"></script>
+    <script src="ground.js"></script>
     <!--references the page to the p5 library-->
     <style>
         body {
@@ -73,7 +74,7 @@
         h1 {
             display: inline;
             color: azure;
-            position: inherit;
+            position: fixed;
         }
     </style>
 </head>
@@ -84,6 +85,7 @@
         var userSpeed = 8; //sensitivity of movement for player
         var w = window.innerWidth; //defines window size
         var h = window.innerHeight; //defines window sized
+        var ground = new ground();
         var ball = new ball(); //global object is created here
         var barrier = new barrier();
         var platform = new platform();
@@ -96,11 +98,14 @@
         var score = 0;
         var highScoreCombo = 0;
         var bG;
-
+        var vid;
+        var rock;
         function preload() {
-            bG = loadImage("media/space.png");
+            bG = loadImage("media/space.jpg");
             bG.resize(w, h);
             
+            rock = createVideo("media/rock.mp4");
+            rock.hide();
             img = loadImage("media/chicken.png");
             
 
@@ -109,7 +114,7 @@
         function setup() { //runs once at startup
             
 
-            createCanvas(w, h); //creates area as big as window
+            createCanvas(w, h ,WEBGL); //creates area as big as window
             //background(0); //makes a black background
             img.loadPixels();
             r = random(256); //random color selection
@@ -126,6 +131,7 @@
             ball.show(); //makes the ball appear by calling the function  in the object
             ball.move();
             platform.show();
+            ground.show();
 
             hit = collideRectCircle(barrier.x, barrier.y, barrier.width, barrier.height, ball.x, ball.y, 50);
             if (hit == true) {
@@ -147,8 +153,15 @@
                 platform.hit++;
 
             }
+            hit = collideRectCircle(ground.x, ground.y, ground.width, ground.height, ball.x, ball.y, 50);
+            if (hit == true) {
+                ball.velocity = -3;
+                console.log("ground hit detected!");
+                
+
+            }
             document.getElementById('coo').innerHTML = "barriers dodged: [" + barrier.dodgeCount + "]" + "bounces: [" +
-                platform.hit + "]" + "score: [" + score + "]";
+                platform.hit + "]" + "score: [" + score + "]" + "Time: [" + timer + "]";
         }
         var timer = 61;
         var myVar = setInterval(myTimer, 1000);
@@ -156,8 +169,8 @@
         function myTimer() {
             if (timer > 0) {
                 --timer;
-                document.getElementById("demo").innerHTML = "Time: [" + timer + "]";
-                score += barrier.dodgeCount + platform.hit;
+                //document.getElementById("demo").innerHTML = "Time: [" + timer + "]";
+                
             } else {
                 clearInterval(myVar);
                 localStorage.setItem('barrierCount', highScoreCombo);
@@ -178,7 +191,7 @@
 
     <h1 id="demo"></h1>
     <!--made an element to display coordinates-->
-    <h2 id="p5_loading">Loading... you really shouldnt be seeing this unless theres a problem with the graphics</h1>
+    <h1 id="p5_loading">Loading... you really shouldnt be seeing this unless theres a problem with the graphics</h1>
 </body>
 
 </html>

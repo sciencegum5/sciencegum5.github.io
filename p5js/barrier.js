@@ -8,16 +8,17 @@ function barrier() {
     this.y = Math.floor((Math.random() * h) + 10);
  this.show = function () {
 
-        fill(color(r, g, b));
-        rect(this.x, this.y, this.width, this.height);
-        
+        texture(rock);
+        ellipse(this.x, this.y, this.width, this.height);
+        rock.loop();
     }
     this.update = function () {
         this.velocity += this.gravity;
         this.x -= this.velocity;
         if (this.x < 0) {
+            score += barrier.dodgeCount + platform.hit;
             this.dodgeCount ++;
-            this.height = Math.floor(Math.random() * 260)+10;
+            this.height = Math.floor(Math.random() * 150)+10;
             this.width = Math.floor(Math.random() * 75)+12;
             this.x = w - this.width;
             this.y = Math.floor((Math.random() * h) + 10);
