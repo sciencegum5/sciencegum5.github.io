@@ -8,6 +8,7 @@
     <!--Makes a nice title on the tab-->
     <script src="p5/p5.min.js"></script>
     <script src="p5/p5.collide2d.min.js"></script>
+    <script language="javascript" type="text/javascript" src="p5/p5.dom.js"></script>
     <script src="barrier.js"></script>
     <script src="jumper.js"></script>
     <script src="platform.js"></script>
@@ -99,32 +100,35 @@
         var highScoreCombo = 0;
         var bG;
         var vid;
-        var rock;
+        //var altgfx;
         function preload() {
             bG = loadImage("media/space.jpg");
             bG.resize(w, h);
-            
-            rock = createVideo("media/rock.mp4");
-            rock.hide();
+            vid = createVideo("media/rock.mp4");
+  vid.hide();
+  vid.loop();
             img = loadImage("media/chicken.png");
             
 
         }
 
         function setup() { //runs once at startup
+            frameRate(120);
+            createCanvas(w, h, WEBGL); //creates area as big as window    
+             //altgfx = createGraphics(w, h, WEBGL);
             
-
-            createCanvas(w, h ,WEBGL); //creates area as big as window
             //background(0); //makes a black background
             img.loadPixels();
             r = random(256); //random color selection
             g = random(256); //random color selection
             b = random(256); //random color selection
+            
         }
 
         function draw() { //runs at 60Hz
-            imageMode(CORNER);
-            background(bG); //makes a black background
+            
+            texture(bG); //makes a black background
+            plane(w,h);
             barrier.show();
             barrier.update();
             ball.update();
@@ -161,7 +165,7 @@
 
             }
             document.getElementById('coo').innerHTML = "barriers dodged: [" + barrier.dodgeCount + "]" + "bounces: [" +
-                platform.hit + "]" + "score: [" + score + "]" + "Time: [" + timer + "]";
+                platform.hit + "]" + "score: [" + score + "]" + "Time: [" + timer + "]" + "FPS:[" + Math.floor(frameRate()) + "]";
         }
         var timer = 61;
         var myVar = setInterval(myTimer, 1000);
