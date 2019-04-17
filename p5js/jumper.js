@@ -1,16 +1,13 @@
 function ball() {
     this.x = w / 2; //sets x position
     this.y = 0; //sets y position
-    this.gravity = 1;
+    this.gravity = 10;
     this.lift = -20;
     this.velocity = 0;
     this.size = 50;
     this.show = function () { //makes the function that allows the ball to be shown
-        //imageMode(CENTER);
-        //translate();
-        texture(img);
-        plane(this.size,this.size);
-        
+        imageMode(CENTER);
+        image(img, this.x, this.y, this.size, this.size);
     }
     this.up = function () {
         this.velocity += this.lift;
