@@ -115,7 +115,7 @@
                 barrier.dodgeCount = 0;
 
             }
-            hit = collideRectCircle(platform.x, platform.y, platform.width, platform.height, ball.x, ball.y, 50);
+            hit = collideRectCircle(platform.x, platform.y, platform.width, platform.height, ball.x, ball.y, 5);
             if (hit == true) {
                 ball.velocity = -10;
                 console.log("platform hit detected!");
