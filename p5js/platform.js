@@ -1,12 +1,12 @@
 function platform() {
-    this.height = 32;
+    this.height = 100;
     this.width = 100;
-    this.x = w/2 - this.width/2;
-    this.y = h/2 - this.height/2;
+    this.x = Math.floor((Math.random() * w/1.7) );
+    this.y = Math.floor((Math.random() * h/1.7 ));
     this.hit = 0;
     this.show = function () {
-        fill(color(r,g,b));
-        rect(this.x, this.y, this.width, this.height);
+         imageMode(CENTER);
+        image(sat, this.x, this.y, this.width, this.height);
 
     }
     }

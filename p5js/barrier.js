@@ -7,10 +7,9 @@ function barrier() {
     this.x = w - this.width;
     this.y = Math.floor((Math.random() * h) + 10);
  this.show = function () {
-
-        texture(rock);
-        ellipse(this.x, this.y, this.width, this.height);
-        rock.loop();
+    fill(color("brown"));
+    imageMode(CENTER);
+    image(rock, this.x, this.y, this.width, this.height);
     }
     this.update = function () {
         this.velocity += this.gravity;

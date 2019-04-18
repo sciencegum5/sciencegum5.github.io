@@ -21,55 +21,28 @@
             /*ensures no gaps appearon page around edges*/
             margin: 0;
             /*ensures no gaps appearon page around edges*/
-            background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
-            background-size: 400% 400%;
-            -webkit-animation: Gradient 15s ease infinite;
-            -moz-animation: Gradient 15s ease infinite;
-            animation: Gradient 15s ease infinite;
         }
 
-        @-webkit-keyframes Gradient {
-            0% {
-                background-position: 0% 50%
-            }
 
-            50% {
-                background-position: 100% 50%
-            }
-
-            100% {
-                background-position: 0% 50%
-            }
+        /* Style the video: 100% width and height to cover the entire window */
+        #myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
         }
 
-        @-moz-keyframes Gradient {
-            0% {
-                background-position: 0% 50%
-            }
-
-            50% {
-                background-position: 100% 50%
-            }
-
-            100% {
-                background-position: 0% 50%
-            }
+        /* Add some content at the bottom of the video/page */
+        .content {
+            position: fixed;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: #f1f1f1;
+            width: 100%;
+            padding: 20px;
         }
-
-        @keyframes Gradient {
-            0% {
-                background-position: 0% 50%
-            }
-
-            50% {
-                background-position: 100% 50%
-            }
-
-            100% {
-                background-position: 0% 50%
-            }
-        }
-
 
         h1 {
             display: inline;
@@ -80,6 +53,10 @@
 </head>
 
 <body>
+    <!-- The video -->
+    <video autoplay muted loop id="myVideo">
+        <source src="media/space.mp4" type="video/mp4">
+    </video>
     <script>
         //we could refer to an external js file but i would like to keep it all on one simple file
         var userSpeed = 8; //sensitivity of movement for player
@@ -92,36 +69,34 @@
         var r; //Random color values (left blank for definition in the function)
         var g; //Random color values (left blank for definition in the function)
         var b; //Random color values (left blank for definition in the function)
-        var img;
+        var ship;
+        var sat;
+        var rock;
         var ts = 48;
         var hit = false;
         var score = 0;
         var highScoreCombo = 0;
-        var bG;
-        var vid;
-        var rock;
+        var video = document.getElementById("myVideo");
+        
         function preload() {
-            bG = loadImage("media/space.jpg");
-            bG.resize(w, h);
-            img = loadImage("media/chicken.png");
-            
-
+            ship = loadImage("media/chicken.png");
+            sat = loadImage("media/satellite.png");
+            rock = loadImage("media/rock.png");
         }
 
         function setup() { //runs once at startup
-            
-
+            console.log("sat location " + platform.x + " , " + platform.y);
+            console.log("map size " + w + " , " + h);
             createCanvas(w, h); //creates area as big as window
             //background(0); //makes a black background
-            img.loadPixels();
+            ship.loadPixels();
             r = random(256); //random color selection
             g = random(256); //random color selection
             b = random(256); //random color selection
         }
 
         function draw() { //runs at 60Hz
-            imageMode(CORNER);
-            background(bG); //makes a black background
+            clear();
             barrier.show();
             barrier.update();
             ball.update();
@@ -152,13 +127,14 @@
             }
             hit = collideRectCircle(ground.x, ground.y, ground.width, ground.height, ball.x, ball.y, 50);
             if (hit == true) {
-                ball.velocity = -3;
+                ball.velocity = -5;
                 console.log("ground hit detected!");
-                
+
 
             }
             document.getElementById('coo').innerHTML = "barriers dodged: [" + barrier.dodgeCount + "]" + "bounces: [" +
-                platform.hit + "]" + "score: [" + score + "]" + "Time: [" + timer + "]";
+                platform.hit + "]" + "score: [" + score + "]" + "Time: [" + timer + "]" + "Framerate: [" + Math.floor(
+                    frameRate()) + "]";
         }
         var timer = 61;
         var myVar = setInterval(myTimer, 1000);
@@ -167,7 +143,7 @@
             if (timer > 0) {
                 --timer;
                 //document.getElementById("demo").innerHTML = "Time: [" + timer + "]";
-                
+
             } else {
                 clearInterval(myVar);
                 localStorage.setItem('barrierCount', highScoreCombo);
@@ -181,6 +157,16 @@
             if (keyCode === 32) {
                 ball.up();
                 console.log("spacebar pressed");
+            }
+            if (keyCode === 80) {
+                if (video.paused) {
+                    video.play();
+                    console.log("video resumed");
+                } else {
+                    video.pause();
+                    console.log("video paused");
+                }
+                
             }
         }
     </script>
