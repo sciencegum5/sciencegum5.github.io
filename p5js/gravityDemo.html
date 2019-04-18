@@ -33,11 +33,15 @@
             min-height: 100%;
             z-index: -1;
         }
-
+        .loadingScreen {
+            top: 50%;
+            left: 50%;
+        }
         /* Add some content at the bottom of the video/page */
         .content {
+            z-index: -1;
             position: fixed;
-            bottom: 0;
+            top: 0;
             background: rgba(0, 0, 0, 0.5);
             color: #f1f1f1;
             width: 100%;
@@ -77,7 +81,7 @@
         var score = 0;
         var highScoreCombo = 0;
         var video = document.getElementById("myVideo");
-        
+        var myVar;
         function preload() {
             ship = loadImage("media/chicken.png");
             sat = loadImage("media/satellite.png");
@@ -85,6 +89,7 @@
         }
 
         function setup() { //runs once at startup
+             myVar = setInterval(myTimer, 1000);
             console.log("sat location " + platform.x + " , " + platform.y);
             console.log("map size " + w + " , " + h);
             createCanvas(w, h); //creates area as big as window
@@ -137,7 +142,7 @@
                     frameRate()) + "]";
         }
         var timer = 61;
-        var myVar = setInterval(myTimer, 1000);
+        
 
         function myTimer() {
             if (timer > 0) {
@@ -170,11 +175,9 @@
             }
         }
     </script>
-    <h1 id="coo"></h1>
-
-    <h1 id="demo"></h1>
+    <h1 id="coo" class="content"></h1>
     <!--made an element to display coordinates-->
-    <h1 id="p5_loading">Loading... you really shouldnt be seeing this unless theres a problem with the graphics</h1>
+    <h1 id="p5_loading" class="loadingScreen">Loading... this may take a minute on first load</h1>
 </body>
 
 </html>
