@@ -103,9 +103,6 @@
         function preload() {
             bG = loadImage("media/space.jpg");
             bG.resize(w, h);
-            
-            rock = createVideo("media/rock.mp4");
-            rock.hide();
             img = loadImage("media/chicken.png");
             
 
@@ -114,7 +111,7 @@
         function setup() { //runs once at startup
             
 
-            createCanvas(w, h ,WEBGL); //creates area as big as window
+            createCanvas(w, h); //creates area as big as window
             //background(0); //makes a black background
             img.loadPixels();
             r = random(256); //random color selection
