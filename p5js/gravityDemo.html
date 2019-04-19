@@ -90,7 +90,7 @@ text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #00ddffb7, 0 0 7p
         var soundTrack;
         var scoreTrack;
         var damageTrack;
-        var tick;
+        var Tick;
         function preload() {
             ship = loadImage("media/chicken.png");
             sat = loadImage("media/satellite.png");
@@ -98,7 +98,7 @@ text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #00ddffb7, 0 0 7p
             soundTrack =  loadSound("media/soundtrack.mp3");//Droid Bishop - The Outlander; not my content, not meant for redistribution
             scoreTrack =  loadSound("media/score.wav");
             damageTrack = loadSound("media/boom.mp3");
-            tick = loadSound("media/tick.mp3");
+            Tick = loadSound("media/Tick.mp3");
         }
 
         function setup() { //runs once at startup
@@ -138,7 +138,7 @@ text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #00ddffb7, 0 0 7p
             }
             hit = collideRectCircle(platform.x, platform.y, platform.width, platform.height, ball.x, ball.y, 5);
             if (hit == true) {
-                tick.play();
+                Tick.play();
                 //scoreTrack.play(); //this is annoying as hell 
                 ball.velocity = -6;
                 console.log("platform hit detected!");
