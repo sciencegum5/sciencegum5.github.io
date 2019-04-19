@@ -1,20 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta nawme="viewport" content="width=device-width, initial-scale=1">
- 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+  font-size: 17px;
+}
+
+#startVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+}
+
+.content {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+
+#startButton {
+  width: 200px;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+#startButton:hover {
+  background: #ddd;
+  color: black;
+}
+</style>
 </head>
 <body>
-        <h1 id="result"></h1>
-    <script>
-        var gameoverdata = {}
+
+<video autoplay muted loop id="startVideo">
+  <source src="media/demo.mp4" type="video/mp4">
+  Your browser does not support HTML5 video n00b.
+</video>
+
+<div class="content">
+  <h1>Game Over</h1>
+  <p id="result">Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo, eum cu recteque expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri ponderum tractatos ei. Id qui nemore latine molestiae, ad mutat oblique delicatissimi pro.</p>
+  <button id="startButton" onclick="myFunction()">⏸ Pause video</button>
+  <button id="startButton" onclick="location.href='./GameTitle.html';"> Give up?</button>
+  <button id="startButton" onclick="location.href='./gravityDemo.html';"> Play again!</button>
+</div>
+<script>
+    var gameoverdata = {}
 //compile and display
-        gameoverdata['score'] = localStorage.getItem("score");
-        gameoverdata['barrierCount'] = localStorage.getItem("barrierCount");
-        document.getElementById('result').innerHTML ="Your highest dodge combo was "+ gameoverdata.barrierCount +" with a score of "+ gameoverdata.score + "!";
-        </script>
+    gameoverdata['score'] = localStorage.getItem("score");
+    gameoverdata['barrierCount'] = localStorage.getItem("barrierCount");
+    document.getElementById('result').innerHTML ="Your highest dodge combo was "+ gameoverdata.barrierCount +" with a score of "+ gameoverdata.score + "!";
+var startVideo = document.getElementById("startVideo");
+var btn = document.getElementById("startButton");
+
+function myFunction() {
+  if (startVideo.paused) {
+    startVideo.play();
+    btn.innerHTML = "⏸ Pause video";
+  } else {
+    startVideo.pause();
+    btn.innerHTML = "▶️ Play video";
+  }
+}
+</script>
+
 </body>
 </html>
