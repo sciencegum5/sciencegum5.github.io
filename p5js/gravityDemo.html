@@ -90,13 +90,15 @@ text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #00ddffb7, 0 0 7p
         var soundTrack;
         var scoreTrack;
         var damageTrack;
+        var tick;
         function preload() {
             ship = loadImage("media/chicken.png");
             sat = loadImage("media/satellite.png");
             rock = loadImage("media/rock.png");
             soundTrack =  loadSound("media/soundtrack.mp3");//Droid Bishop - The Outlander; not my content, not meant for redistribution
-            scoreTrack =  loadSound("media/score.mp3");
+            scoreTrack =  loadSound("media/score.wav");
             damageTrack = loadSound("media/boom.mp3");
+            tick = loadSound("media/tick.mp3");
         }
 
         function setup() { //runs once at startup
@@ -136,8 +138,9 @@ text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #00ddffb7, 0 0 7p
             }
             hit = collideRectCircle(platform.x, platform.y, platform.width, platform.height, ball.x, ball.y, 5);
             if (hit == true) {
-                scoreTrack.play();
-                ball.velocity = -4;
+                tick.play();
+                //scoreTrack.play(); //this is annoying as hell 
+                ball.velocity = -6;
                 console.log("platform hit detected!");
                 r = random(256); //random color selection
                 g = random(256); //random color selection
