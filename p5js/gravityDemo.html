@@ -4,10 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>gravity demo</title>
+    <link rel="icon" href="./media/chicken.png">
+    <title>Alien Dash</title>
     <!--Makes a nice title on the tab-->
     <script src="p5/p5.min.js"></script>
     <script src="p5/p5.collide2d.min.js"></script>
+    <script src="p5/p5.sound.js"></script>
     <script src="barrier.js"></script>
     <script src="jumper.js"></script>
     <script src="platform.js"></script>
@@ -85,10 +87,16 @@ text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #00ddffb7, 0 0 7p
         var video = document.getElementById("myVideo");
         var myVar;
         var yes;
+        var soundTrack;
+        var scoreTrack;
+        var damageTrack;
         function preload() {
             ship = loadImage("media/chicken.png");
             sat = loadImage("media/satellite.png");
             rock = loadImage("media/rock.png");
+            soundTrack =  loadSound("media/soundtrack.mp3");//Droid Bishop - The Outlander; not my content, not meant for redistribution
+            scoreTrack =  loadSound("media/score.mp3");
+            damageTrack = loadSound("media/boom.mp3");
         }
 
         function setup() { //runs once at startup
@@ -101,6 +109,8 @@ text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #00ddffb7, 0 0 7p
             r = random(256); //random color selection
             g = random(256); //random color selection
             b = random(256); //random color selection
+            soundTrack.loop();
+        soundTrack.play();
         }
 
         function draw() { //runs at 60Hz
@@ -113,9 +123,10 @@ text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #00ddffb7, 0 0 7p
             platform.show();
             ground.show();
             
-            hit = collideRectCircle(barrier.x, barrier.y, barrier.width, barrier.height, ball.x, ball.y, 50);
+            hit = collideRectCircle(barrier.x, barrier.y, barrier.width, barrier.height, ball.x, ball.y, 5);
             if (hit == true) {
                 //noLoop();
+                damageTrack.play();
                 console.log("barrier hit detected!");
                 if (barrier.dodgeCount > highScoreCombo) {
                     highScoreCombo = barrier.dodgeCount;
@@ -125,6 +136,7 @@ text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #00ddffb7, 0 0 7p
             }
             hit = collideRectCircle(platform.x, platform.y, platform.width, platform.height, ball.x, ball.y, 5);
             if (hit == true) {
+                scoreTrack.play();
                 ball.velocity = -4;
                 console.log("platform hit detected!");
                 r = random(256); //random color selection

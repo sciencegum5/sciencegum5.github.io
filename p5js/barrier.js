@@ -14,6 +14,7 @@ function barrier() {
         this.velocity += this.gravity;
         this.x -= this.velocity;
         if (this.x < 0) {
+            scoreTrack.play();
             score += barrier.dodgeCount + platform.hit;
             this.dodgeCount ++;
             this.height = Math.floor(Math.random() * 150)+10;
