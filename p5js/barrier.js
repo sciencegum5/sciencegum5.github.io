@@ -1,13 +1,12 @@
 function barrier() {
     this.dodgeCount = 0;
     this.gravity = 1;
-    this.velocity = 5;
+    this.velocity = 0.3;
     this.height = 100;
     this.width = 100;
     this.x = w - this.width;
     this.y = Math.floor((Math.random() * h) + 10);
  this.show = function () {
-    fill(color("brown"));
     imageMode(CENTER);
     image(rock, this.x, this.y, this.width, this.height);
     }
@@ -22,7 +21,7 @@ function barrier() {
             this.x = w - this.width;
             this.y = Math.floor((Math.random() * h) + 10);
             this.gravity = 1;
-            this.velocity = 5 + this.dodgeCount;
+            this.velocity = 0.3 + this.dodgeCount/40;
             
 
         }

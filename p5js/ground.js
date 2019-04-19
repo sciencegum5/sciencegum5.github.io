@@ -5,7 +5,7 @@ function ground() {
     this.y = h - this.height;
     
     this.show = function () {
-        fill(color("dark brown"));
+        fill('rgba(0, 221, 255, 0.3)');
         rect(this.x, this.y, this.width, this.height);
     }
     }

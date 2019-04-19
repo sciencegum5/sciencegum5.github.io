@@ -21,7 +21,10 @@
             /*ensures no gaps appearon page around edges*/
             margin: 0;
             /*ensures no gaps appearon page around edges*/
-            font-family: Arial;
+            
+color: #000;
+text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #00ddffb7, 0 0 7px #00ddffb7, 0 0 8px #00ddffb7, 0 0 10px #00ddffb7, 0 0 15px #00ddffb7;
+
         }
 
 
@@ -44,14 +47,12 @@
             position: fixed;
             top: 0;
             background: rgba(0, 0, 0, 0.5);
-            color: #f1f1f1;
             width: 100%;
             padding: 20px;
         }
 
-        h1 {
+        h2 {
             display: inline;
-            color: azure;
             position: fixed;
         }
     </style>
@@ -83,6 +84,7 @@
         var highScoreCombo = 0;
         var video = document.getElementById("myVideo");
         var myVar;
+        var yes;
         function preload() {
             ship = loadImage("media/chicken.png");
             sat = loadImage("media/satellite.png");
@@ -110,7 +112,7 @@
             ball.move();
             platform.show();
             ground.show();
-
+            
             hit = collideRectCircle(barrier.x, barrier.y, barrier.width, barrier.height, ball.x, ball.y, 50);
             if (hit == true) {
                 //noLoop();
@@ -123,7 +125,7 @@
             }
             hit = collideRectCircle(platform.x, platform.y, platform.width, platform.height, ball.x, ball.y, 5);
             if (hit == true) {
-                ball.velocity = -10;
+                ball.velocity = -4;
                 console.log("platform hit detected!");
                 r = random(256); //random color selection
                 g = random(256); //random color selection
@@ -137,9 +139,9 @@
                 console.log("ground hit detected!");
 
 
-            }
-            document.getElementById('coo').innerHTML = "barriers dodged: [" + barrier.dodgeCount + "]" + "bounces: [" +
-                platform.hit + "]" + "score: [" + score + "]" + "Time: [" + timer + "]" + "Framerate: [" + Math.floor(
+            } 
+            document.getElementById('coo').innerHTML = "Asteroids dodged: [" + barrier.dodgeCount + "] " + "Data gathered: [" +
+                platform.hit + "kB] " + "score: [" + score + "] " + "Time: [" + timer + "] " + "Framerate: [" + Math.floor(
                     frameRate()) + "]";
         }
         var timer = 61;
@@ -176,7 +178,7 @@
             }
         }
     </script>
-    <h1 id="coo" class="content"></h1>
+    <h2 id="coo" class="content"></h2>
     <!--made an element to display coordinates-->
     <h1 id="p5_loading" class="loadingScreen">Loading... this may take a minute on first load</h1>
 </body>
