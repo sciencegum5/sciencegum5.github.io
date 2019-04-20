@@ -9,7 +9,7 @@ function barrier() {
  this.show = function () {
     imageMode(CENTER);
     image(rock, this.x, this.y, this.width, this.height);
-    }
+    };
     this.update = function () {
         this.velocity += this.gravity;
         this.x -= this.velocity;
@@ -26,5 +26,5 @@ function barrier() {
             
 
         }
-    }
+    };
 }

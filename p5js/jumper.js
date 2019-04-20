@@ -8,10 +8,10 @@ function ball() {
     this.show = function () { //makes the function that allows the ball to be shown
         imageMode(CENTER);
         image(ship, this.x, this.y, this.size, this.size);
-    }
+    };
     this.up = function () {
         this.velocity += this.lift;
-    }
+    };
     this.update = function () {
         this.velocity += this.gravity;
         this.y += this.velocity;
@@ -33,8 +33,8 @@ function ball() {
             this.x += userSpeed; //moves player right
 
         }
-        }
+        };
        
         
-    }
+    };
 }
