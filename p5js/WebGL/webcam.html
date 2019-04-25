@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>P5 MIN</title>
+    <script src="/p5js/p5/p5.min.js"></script>
+    <script src="/p5js/p5/p5.dom.js"></script>
+    <style>
+        body{
+            overflow: hidden;
+            /*keeps scroll bars from appearing*/
+            padding: 0;
+            /*ensures no gaps appearon page around edges*/
+            margin: 0;
+            /*ensures no gaps appearon page around edges*/
+        };
+        .content{
+           
+           
+            left:0%;
+            top: 0%;
+        }
+    </style>
+</head>
+<body>
+    <script>
+      let capture;
+      var w = window.innerWidth; //defines window size
+        var h = window.innerHeight; //defines window sized
+function setup() {
+   
+  //createCanvas(390, 240);
+  capture = createCapture(VIDEO);
+  //capture.size(w, h);
+  capture.hide();
+  //image(capture, 0, 0, w, h);
+  resizeCanvas(w,h);
+}
+
+function draw() {
+    //capture = createCapture(VIDEO);
+  //capture.size(w, h);
+  //background(255);
+  //image(capture, 0, 0, w/2, h/2);
+  //filter(INVERT);
+  //image(capture, w/2, 0, w/2, h/2);
+  //filter(THRESHOLD);
+  image(capture, 0, 0, w/2, h);
+  filter(POSTERIZE, 8);
+  image(capture, w/2, 0, w/2, h);
+  //filter(BLUR);
+
+    //document.getElementById('coo').innerHTML = "Framerate: [" + Math.floor(
+    //                frameRate()) + "]";
+  }
+  function keyPressed() {
+            if (keyCode == "83"){
+                save("canvas.jpg");
+            }
+        }
+    </script>
+    
+</body>
+</html>

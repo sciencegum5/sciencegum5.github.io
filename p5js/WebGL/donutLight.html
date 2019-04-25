@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>P5 MIN</title>
+    <script src="/p5js/p5/p5.min.js"></script>
+    <style>
+        body{
+            overflow: hidden;
+            /*keeps scroll bars from appearing*/
+            padding: 0;
+            /*ensures no gaps appearon page around edges*/
+            margin: 0;
+            /*ensures no gaps appearon page around edges*/
+        };
+        .content{
+           
+           
+            left:0%;
+            top: 0%;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let poly = 200
+        ;
+        let img;
+function preload() {
+  img = loadImage('media/donut.png');
+}
+
+       function setup() {
+        var w = window.innerWidth; //defines window size
+        var h = window.innerHeight; //defines window sized
+    createCanvas(w, h, WEBGL);
+    
+  }
+  
+  function draw() {
+    background(128);
+    var xloc = mouseX -width/2;
+    var yloc = mouseY -height/2;
+    directionalLight(255,255,255, -xloc,-yloc, -100);//directionalLight(r, g, b, x, y, z)
+    //noStroke();
+    
+    specularMaterial(255);
+    push();
+  //rotateZ(frameCount * 0.01);
+  rotateX(mouseY/200);
+  rotateY(mouseX/200);
+  //texture(img);
+  torus(100, 75, poly,poly);
+    pop();
+    document.getElementById('coo').innerHTML = "Framerate: [" + Math.floor(
+                    frameRate()) + "]";
+  }
+  
+    </script>
+    <h1 id="coo" class="content"></h1>
+</body>
+</html>
