@@ -24,6 +24,7 @@
 <body>
     <script>
      var fence;
+     var fenceOptions;
 var polygon = [
     {lat: 21.309560, lon: -157.836955},  // top left  
     {lat: 21.310222, lon: -157.838802},  // top right
@@ -37,19 +38,20 @@ function setup(){
 		print('%c error getting geolocaion', "color:black; background:red;");
 	}
     //optional options object for geoFencegeoFencePolygon
-    //fence = new geoFenceCircle(polygon, insideTheFence, 'mi', fenceOptions)
-    // fenceOptions = {
-    //   enableHighAccuracy: false,
-    //   timeout: 5000,
-    //   maximumAge: 0
-    // };
-    fence = new geoFencePolygon(polygon, insideTheFence, outsideTheFence, 'mi')
+    fence = new geoFenceCircle(polygon, insideTheFence, 'mi', fenceOptions)
+     fenceOptions = {
+       enableHighAccuracy: true,
+       timeout: 5000,
+       maximumAge: 0
+     };
+    //fence = new geoFencePolygon(polygon, insideTheFence, outsideTheFence, 'mi')
 }
 
 function insideTheFence(position){
     print("%c INlat: " + position.latitude, "color:black; background:yellow; ");
     print("%c INlong: " + position.longitude, "color:black; background:yellow; ");
     print("%c user is inside of the fence", "color:black; background:green; ");
+    doThisOnLocation();
 }
 
 function outsideTheFence(position){
