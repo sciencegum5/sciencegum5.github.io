@@ -38,20 +38,20 @@ function setup(){
 		print('%c error getting geolocaion', "color:black; background:red;");
 	}
     //optional options object for geoFencegeoFencePolygon
-    fence = new geoFenceCircle(polygon, insideTheFence, 'mi', fenceOptions)
-     fenceOptions = {
-       enableHighAccuracy: true,
-       timeout: 5000,
-       maximumAge: 0
-     };
-    //fence = new geoFencePolygon(polygon, insideTheFence, outsideTheFence, 'mi')
+    //fence = new geoFenceCircle(polygon, insideTheFence, 'mi', fenceOptions)
+     //fenceOptions = {
+       //enableHighAccuracy: true,
+       //timeout: 5000,
+       //maximumAge: 0
+     //};
+    fence = new geoFencePolygon(polygon, insideTheFence, outsideTheFence, 'mi')
 }
 
 function insideTheFence(position){
     print("%c INlat: " + position.latitude, "color:black; background:yellow; ");
     print("%c INlong: " + position.longitude, "color:black; background:yellow; ");
     print("%c user is inside of the fence", "color:black; background:green; ");
-    doThisOnLocation();
+    document.getElementById('coo').innerHTML = " in roostervelt " + position.latitude +" "+ position.longitude;
 }
 
 function outsideTheFence(position){
@@ -59,11 +59,12 @@ function outsideTheFence(position){
     print("%c OUTlat: " + position.latitude, "color:black; background:yellow; ");
     print("%c OUTlong: " + position.longitude, "color:black; background:yellow; ");
     print("%c user is outside of the fence", "color:black; background:red; ");
+    document.getElementById('coo').innerHTML = "not in roostervelt " + position.latitude +" "+ position.longitude;
 }
 function doThisOnLocation() {
-
+    document.getElementById('coo').innerHTML = "not in roostervelt " + position.latitude +" "+ position.longitude;
 }
     </script>
-    
+    <h1 id="coo" class="content"></h1>
 </body>
 </html>
