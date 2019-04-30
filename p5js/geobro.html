@@ -23,8 +23,15 @@
 </head>
 <body>
     <script>
+        var w = window.innerWidth;
+        var h = window.innerHeight;
      var fence;
      var fenceOptions;
+     let lat;
+     let mlat; 
+     let lon;
+     let mlon; 
+     
 var polygon = [
     {lat: 21.309560, lon: -157.836955},  // top left  
     {lat: 21.310222, lon: -157.838802},  // top right
@@ -32,6 +39,8 @@ var polygon = [
     {lat: 21.310740, lon: -157.835932},  // bottom left
 ];
 function setup(){
+    createCanvas(w, h); //creates area as big as window
+ 
     if(geoCheck() == true){
 		print('%c geolocation is available', "color:black; background:green;");
 	}else{
@@ -48,6 +57,10 @@ function setup(){
 }
 
 function insideTheFence(position){
+    lat = position.latitude;
+    lon = position.longitude;
+    mlat = map(lat, -90, 90, 0, h);
+ mlon = map(lon, -180, 180, 0, w);
     print("%c INlat: " + position.latitude, "color:black; background:yellow; ");
     print("%c INlong: " + position.longitude, "color:black; background:yellow; ");
     print("%c user is inside of the fence", "color:black; background:green; ");
@@ -55,7 +68,11 @@ function insideTheFence(position){
 }
 
 function outsideTheFence(position){
-    
+    lat = position.latitude;
+    lon = position.longitude;
+    mlat = map(lat, -90, 90, 0, h);
+ mlon = map(lon, -180, 180, 0, w);
+    print(mlon + " " + mlat);
     print("%c OUTlat: " + position.latitude, "color:black; background:yellow; ");
     print("%c OUTlong: " + position.longitude, "color:black; background:yellow; ");
     print("%c user is outside of the fence", "color:black; background:red; ");
@@ -63,6 +80,14 @@ function outsideTheFence(position){
 }
 function doThisOnLocation() {
     document.getElementById('coo').innerHTML = "not in roostervelt " + position.latitude +" "+ position.longitude;
+}
+function draw() {
+    background(0); //makes a black background
+    fill(color(255,0,0)); //makes the ball red
+    strokeWeight(0);
+    ellipse(mlon, mlat, 5);
+    
+    //print(mlat +" "+mlon);
 }
     </script>
     <h1 id="coo" class="content"></h1>
