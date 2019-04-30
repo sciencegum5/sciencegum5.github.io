@@ -6,7 +6,7 @@
     <script src="/p5js/p5/p5.geolocation.js"></script>
     <style>
         body{
-            background-image: url("/media/world.jpg");
+            
             overflow: hidden;
             /*keeps scroll bars from appearing*/
             padding: 0;
@@ -15,8 +15,8 @@
             /*ensures no gaps appearon page around edges*/
         };
         .content{
-           
-           
+           z-index: -1;
+           position: fixed;
             left:0%;
             top: 0%;
         }
@@ -41,7 +41,7 @@ var polygon = [
 ];
 function setup(){
     createCanvas(w, h); //creates area as big as window
- 
+    bg = loadImage("./media/world.jpg");
     if(geoCheck() == true){
 		print('%c geolocation is available', "color:black; background:green;");
 	}else{
@@ -83,7 +83,7 @@ function doThisOnLocation() {
     document.getElementById('coo').innerHTML = "not in roostervelt " + position.latitude +" "+ position.longitude;
 }
 function draw() {
-    clear();
+    background(bg);
     fill(color(255,0,0)); //makes the ball red
     strokeWeight(0);
     ellipse(mlon, mlat, 5);
@@ -91,6 +91,6 @@ function draw() {
     //print(mlat +" "+mlon);
 }
     </script>
-    <h1 id="coo" class="content"></h1>
+    
 </body>
 </html>
