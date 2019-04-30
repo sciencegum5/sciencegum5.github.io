@@ -6,6 +6,7 @@
     <script src="/p5js/p5/p5.geolocation.js"></script>
     <style>
         body{
+            background-image: url("/media/world.jpg");
             overflow: hidden;
             /*keeps scroll bars from appearing*/
             padding: 0;
@@ -82,7 +83,7 @@ function doThisOnLocation() {
     document.getElementById('coo').innerHTML = "not in roostervelt " + position.latitude +" "+ position.longitude;
 }
 function draw() {
-    background(0); //makes a black background
+    clear();
     fill(color(255,0,0)); //makes the ball red
     strokeWeight(0);
     ellipse(mlon, mlat, 5);
