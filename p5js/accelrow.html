@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>P5 MIN</title>
+    <script src="/p5js/p5/p5.min.js"></script>
+    
+    <style>
+  * {
+      overflow: hidden;
+  }
+    </style>
+</head>
+<body>
+    <script>
+        var ax;
+        var axHigh = 0 ;
+        function setup() {
+            createCanvas(window.innerWidth, window.innerHeight);
+        }
+        function draw() {
+            ax = accelerationX;
+            if (ax < axHigh) {
+                axHigh =ax;
+                document.getElementById('coo').innerHTML= "x accel "+ axHigh;
+            }
+            
+        }
+    </script>
+    <h1 id="coo" class="content"></h1>
+</body>
+</html>
