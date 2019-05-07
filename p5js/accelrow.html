@@ -46,9 +46,27 @@
                 azHigh =az;
                 document.getElementById('coo3').innerHTML= "z accel max "+ azHigh;
             }
+            rx = rotationX;
+            if (rx < rxHigh) {
+                rxHigh =rx;
+                document.getElementById('coo7').innerHTML= "x rotation max "+ rxHigh;
+            }
+            ry = rotationY;
+            if (ry < ryHigh) {
+                ryHigh =ry;
+                document.getElementById('coo8').innerHTML= "y rotation max "+ ryHigh;
+            }
+            rz = rotationZ;
+            if (rz < rzHigh) {
+                rzHigh =rz;
+                document.getElementById('coo9').innerHTML= "z rotation max "+ rzHigh;
+            }
             document.getElementById('coo4').innerHTML= "x accel current "+ ax;
             document.getElementById('coo5').innerHTML= "y accel current "+ ay;
             document.getElementById('coo6').innerHTML= "z accel current "+ az;
+            document.getElementById('coo10').innerHTML= "x rotation current "+ rx;
+            document.getElementById('coo11').innerHTML= "y rotation current "+ ry;
+            document.getElementById('coo12').innerHTML= "z rotation current "+ rz;
         }
         function deviceMoved() {
         document.body.style.backgroundColor = "red";
@@ -60,5 +78,11 @@
     <p id="coo4" class="content"></p>
     <p id="coo5" class="content"></p>
     <p id="coo6" class="content"></p>
+    <p id="coo7" class="content"></p>
+    <p id="coo8" class="content"></p>
+    <p id="coo9" class="content"></p>
+    <p id="coo10" class="content"></p>
+    <p id="coo11" class="content"></p>
+    <p id="coo12" class="content"></p>
 </body>
 </html>
