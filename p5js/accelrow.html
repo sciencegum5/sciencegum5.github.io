@@ -38,6 +38,12 @@
         function setup() {
             createCanvas(window.innerWidth, window.innerHeight);
             setMoveThreshold(threshold);
+            defrz = rotationZ;
+            defaz = accelerationZ;
+            defax = accelerationX;
+            defay = accelerationY;
+            defrx = rotationX;
+            defry = rotationY;
             document.body.style.backgroundColor = "green";
         }
 
@@ -78,7 +84,9 @@
                 ryHigh = ry;
                 document.getElementById('coo6').innerHTML = "y rotation max " + ryHigh;
             }
-
+            if ((rx != defrx) || (ry != defry) || (rz != defrz) || (ax != defax) || (ay != defay) || (az != defaz) ){
+                document.body.style.backgroundColor = "red";
+            }
             document.getElementById('coo7').innerHTML = "x accel current " + ax;
             document.getElementById('coo8').innerHTML = "y accel current " + ay;
             document.getElementById('coo9').innerHTML = "z accel current " + az;
@@ -88,7 +96,7 @@
         }
 
         function deviceMoved() {
-            document.body.style.backgroundColor = "red";
+            document.body.style.backgroundColor = "yellow";
         }
     </script>
     <p id="coo1" class="content"></p>
