@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GeoLocation</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="icon" href="media/Game.ico">
+    <title>GeoTracking</title>
     <script src="/p5js/p5/p5.min.js"></script>
     <script src="/p5js/p5/p5.geolocation.js"></script>
     <style>
         * {
   box-sizing: border-box;
   overflow: hidden;
+  margin: 0%;
 }
         .content{
             z-index: 1;
   position: fixed;
-  bottom: 0;
+  top: 0;
   background: rgba(0, 0, 0, 0.5);
   color: #f1f1f1;
   width: 100%;
@@ -38,10 +41,13 @@ var polygon = [
     {lat: 21.312261, lon: -157.839226},  // bottom right
     {lat: 21.310740, lon: -157.835932},  // bottom left
 ];
+function preload() {
+    bg = loadImage("./media/world.jpg");
+}
 function setup(){
     createCanvas(w, h); //creates area as big as window
+    background(bg);
     
-    bg = loadImage("./media/world.jpg");
     if(geoCheck() == true){
 		print('%c geolocation is available', "color:black; background:green;");
 	}else{
@@ -55,14 +61,15 @@ function setup(){
        timeout: 5000,
        maximumAge: 0
      };
-    
+    //21.3358122 -157.8680598 sumo
+    //21.2969716 -157.8171444 uh
 }
 
 function insideTheFence(position){
     lat = position.latitude;
     lon = position.longitude;
-    mlat = map(lat, 21.3117833, 21.3097477, 0, h);
- mlon = map(lon, -157.8407201, -157.8380801, 0, w);
+    mlat = map(lat, 21.2969716, 21.3358122, 0, h);
+ mlon = map(lon, -157.8171444, -157.8680598, 0, w);
     print("%c INlat: " + position.latitude, "color:black; background:yellow; ");
     print("%c INlong: " + position.longitude, "color:black; background:yellow; ");
     print("%c user is inside of the fence", "color:black; background:green; ");
@@ -72,8 +79,8 @@ function insideTheFence(position){
 function outsideTheFence(position){
     lat = position.latitude;
     lon = position.longitude;
-    mlat = map(lat, 21.3117833, 21.3097477, 0, h);
- mlon = map(lon, -157.8407201, -157.8380801, 0, w);
+    mlat = map(lat, 21.2969716, 21.3358122, 0, h);
+ mlon = map(lon, -157.8171444, -157.8680598, 0, w);
     print(mlon + " " + mlat);
     print("%c OUTlat: " + position.latitude, "color:black; background:yellow; ");
     print("%c OUTlong: " + position.longitude, "color:black; background:yellow; ");
@@ -84,7 +91,7 @@ function doThisOnLocation() {
     document.getElementById('coo').innerHTML = "not in roostervelt " + position.latitude +" "+ position.longitude;
 }
 function draw() {
-    background(bg);
+    
     fill(color(255,0,0)); //makes the ball red
     strokeWeight(0);
     ellipse(mlon, mlat, 5);
