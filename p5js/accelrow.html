@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>P5 MIN</title>
+    <title>acceleration</title>
     <script src="/p5js/p5/p5.min.js"></script>
     
     <style>
@@ -12,14 +12,18 @@
 </head>
 <body>
     <script>
+        var color = "green";
         var ax;
         var axHigh = 0 ;
         var az;
         var azHigh = 0 ;
         var ay;
         var ayHigh = 0 ;
+        var threshold = 0.5;
         function setup() {
             createCanvas(window.innerWidth, window.innerHeight);
+            setMoveThreshold(threshold);
+            background("'"+color +"'");
         }
         function draw() {
             ax = accelerationX;
@@ -41,6 +45,9 @@
             document.getElementById('coo5').innerHTML= "y accel current "+ ay;
             document.getElementById('coo6').innerHTML= "z accel current "+ az;
         }
+        function deviceMoved() {
+        color = red;
+  }
     </script>
     <p id="coo1" class="content"></p>
     <p id="coo2" class="content"></p>
