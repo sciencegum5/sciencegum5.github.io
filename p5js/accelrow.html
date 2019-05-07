@@ -12,7 +12,6 @@
 </head>
 <body>
     <script>
-        var color = 255;
         var ax;
         var axHigh = 0 ;
         var az;
@@ -23,7 +22,7 @@
         function setup() {
             createCanvas(window.innerWidth, window.innerHeight);
             setMoveThreshold(threshold);
-            background(color,color,color);
+            document.body.style.backgroundColor = "green";
         }
         function draw() {
             ax = accelerationX;
@@ -46,7 +45,7 @@
             document.getElementById('coo6').innerHTML= "z accel current "+ az;
         }
         function deviceMoved() {
-        color = 000;
+        document.body.style.backgroundColor = "red";
   }
     </script>
     <p id="coo1" class="content"></p>
