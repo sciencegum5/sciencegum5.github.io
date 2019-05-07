@@ -46,6 +46,11 @@
                 azHigh =az;
                 document.getElementById('coo3').innerHTML= "z accel max "+ azHigh;
             }
+            rz = rotationZ;
+            if (rz < rzHigh) {
+                rzHigh =rz;
+                document.getElementById('coo9').innerHTML= "z rotation max "+ rzHigh;
+            }
             rx = rotationX;
             if (rx < rxHigh) {
                 rxHigh =rx;
@@ -56,11 +61,7 @@
                 ryHigh =ry;
                 document.getElementById('coo8').innerHTML= "y rotation max "+ ryHigh;
             }
-            rz = rotationZ;
-            if (rz < rzHigh) {
-                rzHigh =rz;
-                document.getElementById('coo9').innerHTML= "z rotation max "+ rzHigh;
-            }
+            
             document.getElementById('coo4').innerHTML= "x accel current "+ ax;
             document.getElementById('coo5').innerHTML= "y accel current "+ ay;
             document.getElementById('coo6').innerHTML= "z accel current "+ az;
