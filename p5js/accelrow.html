@@ -31,11 +31,11 @@
             document.body.style.backgroundColor = "green";
         }
         function draw() {
+            rz = rotationZ;
+            az = accelerationZ;
             ax = accelerationX;
             ay = accelerationY;
-            az = accelerationZ;
             rx = rotationX;
-            rz = rotationZ;
             ry = rotationY;
             if (ax < axHigh) {
                 axHigh =ax;
