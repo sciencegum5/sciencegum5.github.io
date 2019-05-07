@@ -12,7 +12,7 @@
 </head>
 <body>
     <script>
-        var color = "green";
+        var color = 255;
         var ax;
         var axHigh = 0 ;
         var az;
@@ -23,7 +23,7 @@
         function setup() {
             createCanvas(window.innerWidth, window.innerHeight);
             setMoveThreshold(threshold);
-            background("'"+color +"'");
+            background(color,color,color);
         }
         function draw() {
             ax = accelerationX;
