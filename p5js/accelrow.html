@@ -87,6 +87,9 @@
             if ((rx != defrx) || (ry != defry) || (rz != defrz) || (ax != defax) || (ay != defay) || (az != defaz) ){
                 document.body.style.backgroundColor = "red";
             }
+            if ((rx == defrx) || (ry == defry) || (rz == defrz) || (ax == defax) || (ay == defay) || (az == defaz) ){
+                document.body.style.backgroundColor = "green";
+            }
             document.getElementById('coo7').innerHTML = "x accel current " + ax;
             document.getElementById('coo8').innerHTML = "y accel current " + ay;
             document.getElementById('coo9').innerHTML = "z accel current " + az;
