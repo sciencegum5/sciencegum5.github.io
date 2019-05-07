@@ -32,31 +32,36 @@
         }
         function draw() {
             ax = accelerationX;
+            ay = accelerationY;
+            az = accelerationZ;
+            rx = rotationX;
+            rz = rotationZ;
+            ry = rotationY;
             if (ax < axHigh) {
                 axHigh =ax;
                 document.getElementById('coo1').innerHTML= "x accel max "+ axHigh;
             }
-            ay = accelerationY;
+            
             if (ay < ayHigh) {
                 ayHigh =ay;
                 document.getElementById('coo2').innerHTML= "y accel max "+ ayHigh;
             }
-            az = accelerationZ;
+            
             if (az < azHigh) {
                 azHigh =az;
                 document.getElementById('coo3').innerHTML= "z accel max "+ azHigh;
             }
-            rz = rotationZ;
+            
             if (rz < rzHigh) {
                 rzHigh =rz;
                 document.getElementById('coo9').innerHTML= "z rotation max "+ rzHigh;
             }
-            rx = rotationX;
+            
             if (rx < rxHigh) {
                 rxHigh =rx;
                 document.getElementById('coo7').innerHTML= "x rotation max "+ rxHigh;
             }
-            ry = rotationY;
+            
             if (ry < ryHigh) {
                 ryHigh =ry;
                 document.getElementById('coo8').innerHTML= "y rotation max "+ ryHigh;
