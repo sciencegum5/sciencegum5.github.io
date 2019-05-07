@@ -1,38 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>acceleration</title>
     <script src="/p5js/p5/p5.min.js"></script>
-    
+
     <style>
-  * {
-      overflow: hidden;
-  }
+        * {
+            overflow: hidden;
+        }
     </style>
 </head>
+
 <body>
     <script>
         var ax;
-        var axHigh = 0 ;
+        var axHigh = 0;
+        var defax;
         var az;
-        var azHigh = 0 ;
+        var azHigh = 0;
+        var defaz;
         var ay;
-        var ayHigh = 0 ;
+        var ayHigh = 0;
+        var defay;
         var rx;
-        var rxHigh = 0 ;
+        var rxHigh = 0;
+        var defrx;
         var rz;
-        var rzHigh = 0 ;
+        var rzHigh = 0;
+        var defrz;
         var ry;
-        var ryHigh = 0 ;
+        var ryHigh = 0;
+        var defry;
 
         var threshold = 10;
+
         function setup() {
             createCanvas(window.innerWidth, window.innerHeight);
             setMoveThreshold(threshold);
             document.body.style.backgroundColor = "green";
         }
+
         function draw() {
-            
+
             rz = rotationZ;
             az = accelerationZ;
             ax = accelerationX;
@@ -40,45 +50,46 @@
             rx = rotationX;
             ry = rotationY;
             if (ax < axHigh) {
-                axHigh =ax;
-                document.getElementById('coo1').innerHTML= "x accel max "+ axHigh;
+                axHigh = ax;
+                document.getElementById('coo1').innerHTML = "x accel max " + axHigh;
             }
-            
+
             if (ay < ayHigh) {
-                ayHigh =ay;
-                document.getElementById('coo2').innerHTML= "y accel max "+ ayHigh;
+                ayHigh = ay;
+                document.getElementById('coo2').innerHTML = "y accel max " + ayHigh;
             }
-            
+
             if (az < azHigh) {
-                azHigh =az;
-                document.getElementById('coo3').innerHTML= "z accel max "+ azHigh;
+                azHigh = az;
+                document.getElementById('coo3').innerHTML = "z accel max " + azHigh;
             }
-            
+
             if (rz < rzHigh) {
-                rzHigh =rz;
-                document.getElementById('coo4').innerHTML= "z rotation max "+ rzHigh;
+                rzHigh = rz;
+                document.getElementById('coo4').innerHTML = "z rotation max " + rzHigh;
             }
-            
+
             if (rx < rxHigh) {
-                rxHigh =rx;
-                document.getElementById('coo5').innerHTML= "x rotation max "+ rxHigh;
+                rxHigh = rx;
+                document.getElementById('coo5').innerHTML = "x rotation max " + rxHigh;
             }
-            
+
             if (ry < ryHigh) {
-                ryHigh =ry;
-                document.getElementById('coo6').innerHTML= "y rotation max "+ ryHigh;
+                ryHigh = ry;
+                document.getElementById('coo6').innerHTML = "y rotation max " + ryHigh;
             }
-            
-            document.getElementById('coo7').innerHTML= "x accel current "+ ax;
-            document.getElementById('coo8').innerHTML= "y accel current "+ ay;
-            document.getElementById('coo9').innerHTML= "z accel current "+ az;
-            document.getElementById('coo10').innerHTML= "x rotation current "+ rx;
-            document.getElementById('coo11').innerHTML= "y rotation current "+ ry;
-            document.getElementById('coo12').innerHTML= "z rotation current "+ rz;
+
+            document.getElementById('coo7').innerHTML = "x accel current " + ax;
+            document.getElementById('coo8').innerHTML = "y accel current " + ay;
+            document.getElementById('coo9').innerHTML = "z accel current " + az;
+            document.getElementById('coo10').innerHTML = "x rotation current " + rx;
+            document.getElementById('coo11').innerHTML = "y rotation current " + ry;
+            document.getElementById('coo12').innerHTML = "z rotation current " + rz;
         }
+
         function deviceMoved() {
-        document.body.style.backgroundColor = "red";
-  }
+            document.body.style.backgroundColor = "red";
+        }
     </script>
     <p id="coo1" class="content"></p>
     <p id="coo2" class="content"></p>
@@ -93,4 +104,5 @@
     <p id="coo11" class="content"></p>
     <p id="coo12" class="content"></p>
 </body>
+
 </html>
