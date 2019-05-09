@@ -37,16 +37,13 @@ function preload() {
   
   function draw() {
     background(128);
-    var xloc = mouseX -width/2;
-    var yloc = mouseY -height/2;
-    directionalLight(255,255,255, -xloc,-yloc, -100);//directionalLight(r, g, b, x, y, z)
     //noStroke();
     
-    specularMaterial(255);
+    
     push();
   //rotateZ(frameCount * 0.01);
-  rotateX(accelerationX/200);
-  rotateY(accelerationY/200);
+  rotateX(accelerationX);
+  rotateY(accelerationY);
   //texture(img);
   torus(100, 75, poly,poly);
     pop();
