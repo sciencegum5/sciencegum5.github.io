@@ -38,12 +38,12 @@
         function setup() {
             createCanvas(window.innerWidth, window.innerHeight);
             setMoveThreshold(threshold);
-            defrz = rotationZ.toFixed();
-            defaz = accelerationZ.toFixed();
-            defax = accelerationX.toFixed();
-            defay = accelerationY.toFixed();
-            defrx = rotationX.toFixed();
-            defry = rotationY.toFixed();
+            defrz = rotationZ.toFixed(0);
+            defaz = accelerationZ.toFixed(0);
+            defax = accelerationX.toFixed(0);
+            defay = accelerationY.toFixed(0);
+            defrx = rotationX.toFixed(0);
+            defry = rotationY.toFixed(0);
             
         }
 
@@ -55,6 +55,7 @@
             ay = accelerationY;
             rx = rotationX;
             ry = rotationY;
+            print("%c values" + az + ax + ay + rz + rx + ry , "color:black; background:yellow; ");
             if (ax < axHigh) {
                 axHigh = ax;
                 document.getElementById('coo1').innerHTML = "x accel max " + axHigh;
