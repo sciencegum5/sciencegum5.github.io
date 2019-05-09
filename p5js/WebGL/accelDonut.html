@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>P5 MIN</title>
+    <title>donut</title>
     <script src="/p5js/p5/p5.min.js"></script>
     <style>
         body{
@@ -45,8 +45,8 @@ function preload() {
     specularMaterial(255);
     push();
   //rotateZ(frameCount * 0.01);
-  rotateX(mouseY/200);
-  rotateY(mouseX/200);
+  rotateX(accelerationX/200);
+  rotateY(accelerationY/200);
   //texture(img);
   torus(100, 75, poly,poly);
     pop();
