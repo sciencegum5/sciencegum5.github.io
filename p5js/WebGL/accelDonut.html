@@ -42,8 +42,8 @@ function preload() {
     specularMaterial(255);
     push();
   //rotateZ(frameCount * 0.01);
-  rotateX(rotationX);
-  rotateY(rotationY);
+  rotateX(rotationX * frameCount);
+  rotateY(rotationY * frameCount);
   //texture(img);
   torus(100, 75, poly,poly);
     pop();
