@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html>
+<style>
+body {
+  background-color: black;
+  place-items: center;
+  text-color: white !important;
+}
+
+h1, h2 {
+	color: white;
+   
+}
+div {
+	--angle: 0deg;
+	text-align: center;
+	border: .5vmin solid;
+	border-image: conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red) 1;
+    animation: 6s rotate linear infinite;
+}
+@keyframes rotate {
+	to {
+		--angle: 360deg;
+	}
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+p {
+  text-align: center;
+  color: white;
+  font-family: verdana;
+  font-size: 20px;
+}
+input {
+	margin-left: 43%;
+}
+button {
+	margin-left: 47%;
+}
+</style>
+<body>
+
+<p>Enter piston diameter to calc area</p>
+ <input type="text" id="Dia" >
+ <div class="rainbow">
+ <h1 id="headerOne"></h1>
+ </div>
+ <p>Enter hole diameter if present</p>
+ <input type="text" id="holeDia" >
+ <br>
+ <div class="rainbow">
+ <h1 id="headerTwo"></h1>
+ </div>
+ <br>
+ <div class="rainbow">
+ <h1 id="headerF"></h1>
+ </div>
+ <p>Enter force or pressure modifier</p>
+ <input type="text" id="altA" >
+ <div class="rainbow">
+ <h2 id="headerFA"></h2>
+ </div>
+ <button onclick = "fun()" > Click Me </button> 
+
+<script>
+var diameterOne
+var radiusOne
+var radiusSqOne
+var radiusPieOne
+var outputOne
+var outputOne
+
+var diameterTwo
+var radiusTwo
+var radiusSqTwo
+var radiusPieTwo
+var outputTwo
+
+var outputF
+var FinalA
+
+var twoA
+var twoB
+function fun() {
+diameterOne = document.getElementById("Dia").value;// Calc for inital piston
+radiusOne = diameterOne / 2 
+radiusOne = radiusOne.toFixed(2);
+
+radiusSqOne = radiusOne * radiusOne 
+radiusSqOne = radiusSqOne.toFixed(2);
+
+radiusPieOne = radiusSqOne * 3.14 
+radiusPieOne = radiusPieOne.toFixed(2);
+// Update header text
+outputOne = diameterOne + " / 2 = " + radiusOne + " x " + radiusOne + " = " + radiusSqOne + " x 3.14 = " + radiusPieOne
+document.querySelector('#headerOne').innerHTML = outputOne;
+
+diameterTwo = document.getElementById("holeDia").value;// Calc for piston two
+radiusTwo = diameterTwo / 2 
+radiusTwo = radiusTwo.toFixed(2);
+
+radiusSqTwo = radiusTwo * radiusTwo 
+radiusSqTwo = radiusSqTwo.toFixed(2);
+
+radiusPieTwo = radiusSqTwo * 3.14 
+radiusPieTwo = radiusPieTwo.toFixed(2);
+// Update header text
+outputTwo = diameterTwo + " / 2 = " + radiusTwo + " x " + radiusTwo + " = " + radiusSqTwo + " x 3.14 = " + radiusPieTwo
+document.querySelector('#headerTwo').innerHTML = outputTwo;
+
+FinalA = radiusPieOne - radiusPieTwo;
+FinalA = FinalA.toFixed(2);
+outputF = radiusPieOne + " - " + radiusPieTwo + " = " + FinalA;
+document.querySelector('#headerF').innerHTML = outputF;  
+
+altA = document.getElementById("altA").value;
+twoA = altA * FinalA; //force
+twoB = altA / FinalA; //pressure
+twoA = twoA.toFixed(2);
+twoB = twoB.toFixed(2);
+document.querySelector('#headerFA').innerHTML = "If asked for pressure: " + altA + "/" + FinalA + "=" + twoB + " If asked for force: " + altA + "x" + FinalA + "=" + twoA; 
+}
+</script>
+
+</body>
+</html>
