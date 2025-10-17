@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="../media/Game.ico">
+    <title>Time-Tracker with Wake Lock, Clock & Dark Mode</title>
+    <style>
+        :root {
+            --bg: #fff;
+            --text: #000;
+            --panel-bg: #eef;
+            --input-bg: #fff;
+            --input-border: #ccc;
+            --error-bg: #fee;
+            --error-text: #b00020;
+        }
+        body.dark-mode {
+            --bg: #121212;
+            --text: #eee;
+            --panel-bg: #232323;
+            --input-bg: #1e1e1e;
+            --input-border: #444;
+            --error-bg: #330000;
+            --error-text: #ff6666;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: 2em auto;
+            transition: background 0.3s, color 0.3s;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+        .dark-toggle {
+            text-align: right;
+            margin-bottom: 1em;
+        }
+        .dark-toggle button {
+            margin-left: 0.5em;
+            padding: 0.4em 0.8em;
+            cursor: pointer;
+            background: var(--panel-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 4px;
+            color: var(--text);
+            transition: background 0.3s;
+        }
+        #errorMessages {
+            display: none;
+            background: var(--error-bg);
+            color: var(--error-text);
+            border: 1px solid var(--error-text);
+            border-radius: 4px;
+            padding: 0.5em;
+            margin-bottom: 1em;
+        }
+        .keep-awake {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1em;
+            padding: 1em;
+            background: var(--panel-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 6px;
+            margin-bottom: 1.5em;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .keep-awake button {
+            padding: 0.5em 1em;
+            cursor: pointer;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 4px;
+            color: var(--text);
+        }
+        .keep-awake .status {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .keep-awake .current-time {
+            font-family: monospace;
+            font-size: 1.3em;
+        }
+        .keep-awake .duration {
+            flex-basis: 100%;
+            margin-top: 0.5em;
+            font-size: 1.2em;
+        }
+        .keep-awake output {
+            font-family: monospace;
+            font-size: 1.2em;
+            background: var(--input-bg);
+            padding: 0.2em 0.4em;
+            border: 1px solid var(--input-border);
+            border-radius: 4px;
+            color: var(--text);
+        }
+        .container {
+            display: flex;
+            gap: 2em;
+        }
+        .inputs, .outputs {
+            flex: 1;
+        }
+        .field {
+            margin-bottom: 1em;
+        }
+        label {
+            display: inline-block;
+            width: 160px;
+            font-weight: bold;
+        }
+        input[type="time"] {
+            width: 120px;
+            background: var(--input-bg);
+            color: var(--text);
+            border: 1px solid var(--input-border);
+            border-radius: 4px;
+            padding: 0.2em;
+        }
+        .outputs output {
+            display: inline-block;
+            min-width: 120px;
+            padding: 0.2em 0.5em;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 4px;
+            color: var(--text);
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-toggle">
+        <button id="darkModeBtn">Enable Dark Mode</button>
+        <button id="resetBtn">Reset All</button>
+    </div>
+
+    <h1>Time-Tracker</h1>
+
+    <div class="keep-awake">
+        <button id="wakeLockBtn">Disable Keep Awake</button>
+        <span class="status" id="wakeLockStatus">Active</span>
+        <span class="current-time" id="currentTime">–––</span>
+        <div class="duration">
+            Active duration:
+            <output id="wakeDuration">00:00:00 (0.00 hrs)</output>
+        </div>
+    </div>
+
+    <div id="errorMessages" role="alert" aria-live="assertive"></div>
+
+    <div class="container">
+        <div class="inputs">
+            <div class="field">
+                <label for="clockIn">Clock In:</label>
+                <input type="time" id="clockIn" />
+            </div>
+            <div class="field">
+                <label for="clockOut">Clock Out:</label>
+                <input type="time" id="clockOut" />
+            </div>
+            <div class="field">
+                <label for="lunchStart">Lunch Start:</label>
+                <input type="time" id="lunchStart" />
+            </div>
+            <div class="field">
+                <label for="lunchEnd">Lunch End:</label>
+                <input type="time" id="lunchEnd" />
+            </div>
+            <div class="field">
+                <label for="outStart">Out-of-Work Start:</label>
+                <input type="time" id="outStart" />
+            </div>
+        </div>
+        <div class="outputs">
+            <div class="field">
+                <label for="beforeLunch">Work before lunch:</label>
+                <output id="beforeLunch">–</output>
+            </div>
+            <div class="field">
+                <label for="lunchBreak">Lunch break:</label>
+                <output id="lunchBreak">–</output>
+            </div>
+            <div class="field">
+                <label for="afterLunch">After lunch to Clock Out:</label>
+                <output id="afterLunch">–</output>
+            </div>
+            <div class="field">
+                <label for="outWork">Out-of-work duration:</label>
+                <output id="outWork">–</output>
+            </div>
+            <div class="field">
+                <label for="totalTime">Total clocked-in time:</label>
+                <output id="totalTime">–</output>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode toggle
+        const darkBtn = document.getElementById('darkModeBtn');
+        darkBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            darkBtn.textContent = document.body.classList.contains('dark-mode')
+                ? 'Disable Dark Mode'
+                : 'Enable Dark Mode';
+        });
+
+        // Reset all inputs and outputs
+        const resetBtn = document.getElementById('resetBtn');
+        resetBtn.addEventListener('click', () => {
+            elems.forEach(el => el.value = '');
+            ['beforeLunch','lunchBreak','afterLunch','outWork','totalTime']
+                .forEach(id => document.getElementById(id).textContent = '–');
+            errorDiv.style.display = 'none';
+            errorDiv.innerHTML = '';
+        });
+
+        // Wake Lock & Clock
+        let wakeLock = null, wakeStart = null, wakeInterval = null;
+        const wakeBtn     = document.getElementById('wakeLockBtn');
+        const wakeStatus  = document.getElementById('wakeLockStatus');
+        const wakeDur     = document.getElementById('wakeDuration');
+        const currentTime = document.getElementById('currentTime');
+
+        wakeBtn.addEventListener('click', toggleWakeLock);
+
+        async function requestWakeLock() {
+            if (!('wakeLock' in navigator)) return;
+            try { wakeLock = await navigator.wakeLock.request('screen'); } catch {}
+        }
+        async function releaseWakeLock() {
+            if (wakeLock) {
+                await wakeLock.release();
+                wakeLock = null;
+            }
+        }
+        function toggleWakeLock() {
+            if (!wakeLock) {
+                requestWakeLock();
+                wakeStart = Date.now();
+                wakeStatus.textContent = 'Active';
+                wakeBtn.textContent    = 'Disable Keep Awake';
+                startIntervals();
+            } else {
+                releaseWakeLock();
+                stopIntervals();
+                wakeStatus.textContent = 'Inactive';
+                wakeBtn.textContent    = 'Enable Keep Awake';
+                wakeDur.textContent    = '00:00:00 (0.00 hrs)';
+            }
+        }
+        function startIntervals() {
+            updateCurrentTime();
+            updateWakeDuration();
+            wakeInterval = setInterval(() => {
+                updateCurrentTime();
+                updateWakeDuration();
+            }, 1000);
+        }
+        function stopIntervals() {
+            clearInterval(wakeInterval);
+            wakeStart = null;
+        }
+        function updateCurrentTime() {
+            const now = new Date();
+            const monthWord = now.toLocaleString('en-US',{ month:'long' });
+            const monthNum  = String(now.getMonth()+1).padStart(2,'0');
+            const day       = String(now.getDate()).padStart(2,'0');
+            const year      = now.getFullYear();
+            const dateStr   = `${monthWord} (${monthNum}) ${day}, ${year}`;
+            const time24    = now.toTimeString().slice(0,8);
+            const time12    = now.toLocaleTimeString('en-US',{
+                hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+            currentTime.textContent = `${dateStr} • ${time24} (${time12})`;
+        }
+        function updateWakeDuration() {
+            if (!wakeStart) return;
+            const diffMs = Date.now() - wakeStart;
+            const sec   = Math.floor(diffMs/1000) % 60;
+            const min   = Math.floor(diffMs/60000) % 60;
+            const hr    = Math.floor(diffMs/3600000);
+            const hhmmss = String(hr).padStart(2,'0') + ':' +
+                                         String(min).padStart(2,'0') + ':' +
+                                         String(sec).padStart(2,'0');
+            const decimal = (diffMs/3600000).toFixed(2) + ' hrs';
+            wakeDur.textContent = `${hhmmss} (${decimal})`;
+        }
+
+        // Pop-up if page is off-screen
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                alert('⚠️ Page is not visible (off-screen)!');
+            }
+            if (wakeLock && document.visibilityState === 'visible') {
+                requestWakeLock();
+            }
+        });
+
+        // Time-Tracker logic
+        const ids      = ["clockIn","clockOut","lunchStart","lunchEnd","outStart"];
+        const elems    = ids.map(id => document.getElementById(id));
+        const errorDiv = document.getElementById('errorMessages');
+
+        function toMinutes(t) {
+            if (!t) return null;
+            const [h,m] = t.split(":").map(Number);
+            return h*60 + m;
+        }
+        function formatHM(mins) {
+            if (mins == null || isNaN(mins)) return "–";
+            const s = mins < 0 ? "-" : "";
+            const H = String(Math.floor(Math.abs(mins)/60)).padStart(2,'0');
+            const M = String(Math.floor(Math.abs(mins)%60)).padStart(2,'0');
+            return s + H + ':' + M;
+        }
+        function toDecimal(mins) {
+            if (mins == null || isNaN(mins)) return "–";
+            return (mins/60).toFixed(2) + ' hrs';
+        }
+        function show(id, mins) {
+            document.getElementById(id).textContent =
+                `${formatHM(mins)} (${toDecimal(mins)})`;
+        }
+
+        // Display validation errors inline
+        function validateInputs() {
+            const [ci, co, ls, le, os] = elems.map(e => toMinutes(e.value));
+            const errors = [];
+            if (ci!=null && co!=null && co < ci)
+                errors.push("Clock Out is before Clock In.");
+            if (ci!=null && ls!=null && ls < ci)
+                errors.push("Lunch Start is before Clock In.");
+            if (ls!=null && le!=null && le < ls)
+                errors.push("Lunch End is before Lunch Start.");
+            if (le!=null && co!=null && co < le)
+                errors.push("Clock Out is before Lunch End.");
+            if (os!=null && ci!=null && os < ci)
+                errors.push("Out-of-Work Start is before Clock In.");
+
+            if (errors.length) {
+                errorDiv.innerHTML = errors.join("<br>");
+                errorDiv.style.display = 'block';
+            } else {
+                errorDiv.innerHTML = '';
+                errorDiv.style.display = 'none';
+            }
+        }
+
+        function calculate() {
+            const [ci,co,ls,le,os] = elems.map(e => toMinutes(e.value));
+            const beforeLunch = (ci!=null&&ls!=null)?ls-ci:null;
+            const lunchBreak  = (ls!=null&&le!=null)?le-ls:null;
+            const afterLunch  = (le!=null&&co!=null)?co-le:null;
+            const outWork     = (os!=null&&co!=null)?co-os:null;
+            const totalTime   = (beforeLunch!=null&&afterLunch!=null)
+                                                    ? beforeLunch+afterLunch
+                                                    : null;
+
+            show("beforeLunch", beforeLunch);
+            show("lunchBreak", lunchBreak);
+            show("afterLunch", afterLunch);
+            show("outWork", outWork);
+            show("totalTime", totalTime);
+        }
+
+        // Hook validation + calculation to inputs
+        elems.forEach(el => el.addEventListener("change", () => {
+            validateInputs();
+            calculate();
+        }));
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleWakeLock();
+        });
+    </script>
+</body>
+</html>
