@@ -36,7 +36,7 @@
             margin-bottom: 0.5em;
         }
         .dark-toggle {
-            text-align: right;
+            text-align: center;
             margin-bottom: 1em;
         }
         .dark-toggle button {
@@ -71,6 +71,8 @@
             position: sticky;
             top: 0;
             z-index: 10;
+            text-align: center;
+            margin: 0 auto;
         }
         .keep-awake button {
             padding: 0.5em 1em;
@@ -79,14 +81,17 @@
             border: 1px solid var(--input-border);
             border-radius: 4px;
             color: var(--text);
+            margin: 0 auto;
         }
         .keep-awake .status {
             font-weight: bold;
             font-size: 1.2em;
+            margin: 0 auto;
         }
         .keep-awake .current-time {
             font-family: monospace;
             font-size: 1.3em;
+            margin: 0 auto;
         }
         .keep-awake .duration {
             flex-basis: 100%;
@@ -137,21 +142,18 @@
     </style>
 </head>
 <body>
-    <div class="dark-toggle">
-        <button id="darkModeBtn">Enable Dark Mode</button>
-        <button id="resetBtn">Reset All</button>
-    </div>
 
     <h1>Time-Tracker</h1>
 
     <div class="keep-awake">
-        <button id="wakeLockBtn">Disable Keep Awake</button>
-        <span class="status" id="wakeLockStatus">Active</span>
         <span class="current-time" id="currentTime">–––</span>
+        
         <div class="duration">
             Active duration:
             <output id="wakeDuration">00:00:00 (0.00 hrs)</output>
         </div>
+        <button id="wakeLockBtn">Disable Keep Awake</button>
+        <span class="status" id="wakeLockStatus">Active</span>
     </div>
 
     <div id="errorMessages" role="alert" aria-live="assertive"></div>
@@ -202,7 +204,10 @@
             </div>
         </div>
     </div>
-
+     <div class="dark-toggle">
+        <button id="darkModeBtn">Enable Dark Mode</button>
+        <button id="resetBtn">Reset All</button>
+    </div>
     <script>
         // Dark mode toggle
         const darkBtn = document.getElementById('darkModeBtn');
