@@ -77,6 +77,11 @@ button:hover { background:#357bd8; }
     </div>
     <button id="wakeLockBtn">Disable Keep Awake</button>
     <span class="status" id="wakeLockStatus">Active</span>
+    <button id="darkModeToggle">Dark Mode</button>
+    <label>Font Size:
+        <input type="range" id="fontSizeSlider" min="16" max="72" value="16">
+        <span id="fontSizeVal">16</span>px
+    </label>
 </div>
 <div class="box">
     <input type="text" id="taskDesc" placeholder="Task description" required>
@@ -85,11 +90,7 @@ button:hover { background:#357bd8; }
 </div>
 
 <div class="box">
-    <button id="darkModeToggle">Dark Mode</button>
-    <label>Font Size:
-        <input type="range" id="fontSizeSlider" min="16" max="72" value="16">
-        <span id="fontSizeVal">16</span>px
-    </label>
+    
 </div>
 
 <div id="popupMsg">Tab is not visible! Please return to keep tracking active.</div>
