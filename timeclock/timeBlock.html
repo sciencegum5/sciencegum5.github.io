@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="../media/Game.ico">
+<title>Work Time Block Tracker & Time-Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+/* === Base Styles === */
+body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    margin:0; padding:30px;
+    background:linear-gradient(135deg,#f2f4f7,#e6ecf2);
+    color:#222; text-align:center;
+}
+h1 { margin-bottom:30px; margin-top:30px; letter-spacing:0.5px; }
+
+/* Centered content boxes */
+.box {
+    background:#fff; border-radius:10px; padding:30px; margin:25px auto;
+    max-width:500px; width:90%; box-shadow:0 3px 10px rgba(0,0,0,0.08);
+    text-align:center;
+}
+
+/* Input & buttons styling */
+input[type="text"], button, output {
+    font-size:16px; border-radius:6px; padding:12px; border:1px solid #ccc;
+    box-sizing: border-box;
+}
+input[type="text"] { width:100%; text-align:center; margin-bottom:15px; }
+button { background:#4a90e2; color:white; cursor:pointer; transition:0.2s; margin:8px 0; width:100%; }
+button:hover { background:#357bd8; }
+#startBtn { background:#28a745; } #startBtn:hover { background:#218838; }
+#endBtn { background:#dc3545; } #endBtn:hover { background:#c82333; }
+
+/* Keep awake box */
+.keep-awake .current-time { font-family:"Courier New", monospace; font-weight:bold; font-size:22px; color:#2b2b2b; margin-bottom:20px; }
+.keep-awake .duration { margin-bottom:20px; margin-top:20px; }
+
+/* Task block list and gap elements */
+.block-list {
+    display:flex; flex-direction:column; gap:12px; margin:25px auto;
+    max-width:500px; width:90%; padding:0;
+}
+.block, .gap {
+    width:100%; box-sizing:border-box; padding:20px; border-radius:10px;
+}
+.block { background:#fff; border-left:4px solid #4a90e2; box-shadow:0 2px 6px rgba(0,0,0,0.08); text-align:left; word-break:break-word; }
+.gap { background:#f9f9f9; font-style:italic; }
+
+/* Popup Message */
+#popupMsg { display:none; background:#ffe0e0; color:#b00; padding:15px; border-radius:6px; margin:25px auto; max-width:500px; width:90%; font-weight:bold; text-align:center; }
+
+/* Dark Mode */
+.dark-mode { background:#121212; color:#e4e4e4; }
+.dark-mode .box { background:#1e1e1e; }
+.dark-mode .block { background:#1e1e1e; border-left:4px solid #6aa9ff; }
+.dark-mode .gap { background:#2a2a2a; color:#e4e4e4; }
+.dark-mode input[type="text"] { background:#1e1e1e; color:#eee; border-color:#555; }
+.dark-mode button { border-color:#444; }
+.dark-mode #popupMsg { background:#402020; color:#ffb0b0; }
+.dark-mode .current-time { color:#fff; }
+
+/* Responsive */
+@media (max-width:600px){
+    input[type="text"], button, .block, .gap, #popupMsg { font-size:16px; }
+}
+</style>
+</head>
+<body>
+
+<h1>Time-Tracker</h1>
+<div class="box keep-awake">
+    <span class="current-time" id="currentTime2">–––</span>
+    <div class="duration">
+        Active duration: <output id="wakeDuration">00:00:00 (0.00 hrs)</output>
+    </div>
+    <button id="wakeLockBtn">Disable Keep Awake</button>
+    <span class="status" id="wakeLockStatus">Active</span>
+</div>
+
+<h1>Work Time Block Tracker</h1>
+<div class="box">
+    <input type="text" id="taskDesc" placeholder="Task description" required>
+    <button type="button" id="startBtn">Start Task</button>
+    <button type="button" id="endBtn" disabled>End Task</button>
+</div>
+
+<div class="box">
+    <button id="darkModeToggle">Dark Mode</button>
+    <label>Font Size:
+        <input type="range" id="fontSizeSlider" min="16" max="72" value="16">
+        <span id="fontSizeVal">16</span>px
+    </label>
+    <button id="resetBtn">Reset All</button>
+</div>
+
+<div id="popupMsg">Tab is not visible! Please return to keep tracking active.</div>
+
+<div class="block-list" id="blockList"></div>
+<div class="box" id="totalHours">Total Hours: 0.00</div>
+<div id="errorMessages" role="alert" aria-live="assertive"></div>
+
+<script>
+// === Dark Mode ===
+const darkToggle = document.getElementById("darkModeToggle");
+function toggleDarkMode() {
+    const enabled = document.body.classList.toggle("dark-mode");
+    localStorage.setItem("darkMode", enabled);
+    darkToggle.textContent = enabled ? "Light Mode" : "Dark Mode";
+}
+darkToggle.addEventListener("click", toggleDarkMode);
+if(localStorage.getItem("darkMode")==="true"){ document.body.classList.add("dark-mode"); darkToggle.textContent="Light Mode"; }
+
+// === Font Size ===
+const fontSizeSlider = document.getElementById('fontSizeSlider');
+const fontSizeVal = document.getElementById('fontSizeVal');
+const currentTimeDisplay = document.getElementById('currentTime2');
+function setFontSize(size){
+    if(currentTimeDisplay) currentTimeDisplay.style.fontSize=size+"px";
+    fontSizeVal.textContent=size;
+    localStorage.setItem('clockFontSize',size);
+}
+fontSizeSlider.addEventListener('input',e=>setFontSize(e.target.value));
+const savedSize = localStorage.getItem('clockFontSize');
+if(savedSize){ fontSizeSlider.value=savedSize; setFontSize(savedSize); }
+
+// === Popup Message ===
+const popupMsg = document.getElementById('popupMsg');
+document.addEventListener('visibilitychange',()=>{ popupMsg.style.display = document.visibilityState==='hidden' ? 'block':'none'; });
+
+// === Time Blocks ===
+const startBtn = document.getElementById('startBtn');
+const endBtn = document.getElementById('endBtn');
+const blockList = document.getElementById('blockList');
+const totalDiv = document.getElementById('totalHours');
+let currentTask=null, lastTaskEnd=null;
+
+function formatTime(dt){ return dt.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
+function formatDate(dt){ return dt.toLocaleDateString(); }
+function getDecimalHours(ms){ return (ms/(1000*60*60)).toFixed(2); }
+
+function updateTotal(){
+    let sum=0; blockList.querySelectorAll('.block').forEach(b=>{ let m=b.innerText.match(/\(([\d.]+) hours\)/); if(m) sum+=parseFloat(m[1]); });
+    totalDiv.textContent=`Total Hours: ${sum.toFixed(2)}`;
+}
+
+startBtn.addEventListener('click',()=>{
+    const task=document.getElementById('taskDesc').value.trim();
+    if(!task || currentTask) return;
+    const now=new Date();
+    if(lastTaskEnd){
+        const gapMs=now-lastTaskEnd;
+        if(gapMs>0){
+            const gapDiv=document.createElement('div');
+            gapDiv.className='gap';
+            gapDiv.textContent=`Gap: ${getDecimalHours(gapMs)} hours (${formatTime(lastTaskEnd)} - ${formatTime(now)})`;
+            blockList.appendChild(gapDiv);
+        }
+    }
+    currentTask={desc:task,start:now};
+    startBtn.disabled=true; endBtn.disabled=false; document.getElementById('taskDesc').disabled=true;
+});
+
+endBtn.addEventListener('click',()=>{
+    if(!currentTask) return;
+    const end=new Date(), start=currentTask.start, durationMs=end-start;
+    const blockDiv=document.createElement('div'); blockDiv.className='block';
+    blockDiv.innerHTML=`<strong>${formatDate(start)} ${formatTime(start)} - ${formatTime(end)}</strong> (${getDecimalHours(durationMs)} hours): ${currentTask.desc}`;
+    blockList.appendChild(blockDiv);
+    lastTaskEnd=end; currentTask=null;
+    document.getElementById('taskDesc').value=''; document.getElementById('taskDesc').disabled=false; startBtn.disabled=false; endBtn.disabled=true;
+    updateTotal();
+});
+
+// === Wake Lock & Clock ===
+let wakeLock2=null, wakeStart2=null, wakeInterval2=null;
+const wakeBtn=document.getElementById('wakeLockBtn');
+const wakeStatus=document.getElementById('wakeLockStatus');
+const wakeDur=document.getElementById('wakeDuration');
+const currentTime2=document.getElementById('currentTime2');
+
+wakeBtn.addEventListener('click', toggleWakeLock2);
+
+async function requestWakeLock2(){ if(!('wakeLock' in navigator)) return; try{ wakeLock2=await navigator.wakeLock.request('screen');}catch{} }
+async function releaseWakeLock2(){ if(wakeLock2){ await wakeLock2.release(); wakeLock2=null; } }
+
+function toggleWakeLock2(){
+    if(!wakeLock2){ requestWakeLock2(); wakeStart2=Date.now(); wakeStatus.textContent='Active'; wakeBtn.textContent='Disable Keep Awake'; startIntervals2();}
+    else{ releaseWakeLock2(); stopIntervals2(); wakeStatus.textContent='Inactive'; wakeBtn.textContent='Enable Keep Awake'; wakeDur.textContent='00:00:00 (0.00 hrs)'; }
+}
+function startIntervals2(){ updateCurrentTime2(); updateWakeDuration2(); wakeInterval2=setInterval(()=>{updateCurrentTime2(); updateWakeDuration2();},1000);}
+function stopIntervals2(){ clearInterval(wakeInterval2); wakeStart2=null; }
+function updateCurrentTime2(){ const now=new Date(); const monthWord=now.toLocaleString('en-US',{month:'long'}), monthNum=String(now.getMonth()+1).padStart(2,'0'), day=String(now.getDate()).padStart(2,'0'), year=now.getFullYear(); currentTime2.textContent=`${monthWord} (${monthNum}) ${day}, ${year} • ${now.toTimeString().slice(0,8)} (${now.toLocaleTimeString('en-US',{hour12:true,hour:'2-digit',minute:'2-digit',second:'2-digit'})})`; }
+function updateWakeDuration2(){ if(!wakeStart2) return; const diffMs=Date.now()-wakeStart2; const sec=Math.floor(diffMs/1000)%60; const min=Math.floor(diffMs/60000)%60; const hr=Math.floor(diffMs/3600000); wakeDur.textContent=`${String(hr).padStart(2,'0')}:${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')} (${(diffMs/3600000).toFixed(2)} hrs)`; }
+
+document.addEventListener('visibilitychange',()=>{ if(wakeLock2 && document.visibilityState==='visible') requestWakeLock2(); });
+
+// === Reset ===
+const resetBtn=document.getElementById('resetBtn');
+resetBtn.addEventListener('click',()=>{ document.getElementById('errorMessages').style.display='none'; document.getElementById('errorMessages').innerHTML=''; });
+
+// === Initialize ===
+document.addEventListener('DOMContentLoaded',()=>{ toggleWakeLock2(); });
+</script>
+</body>
+</html>
